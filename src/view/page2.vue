@@ -123,8 +123,7 @@ export default {
 .app-container2 {
   text-align: center; /*让div内部文字居中*/
   width: 400px;
-  height: 400px;
-  margin: auto;
+  height: 300px;
   position: relative;
   top: 0;
   left: 0;
@@ -147,9 +146,9 @@ export default {
   height: auto;
   width: 100%;
   position: relative;
-  overflow: auto;
+  /*overflow: auto;*/
   display: flex;
-  /*flex-wrap: wrap;*/
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 
@@ -157,29 +156,32 @@ export default {
   text-align: center;
   width: 35%;
   border-radius: 15px;
-  height: 80px;
-  overflow: hidden;
-  margin: 3px;
+  height: 90px;
+  /*overflow: hidden;*/
+  /*margin: 10px;*/
+  margin-bottom: 50px;
   max-height: 100px;
   background-color: rgba(242, 244, 247, 0.4);
 }
 
 .iconstyle {
   margin-bottom: 5px;
-  margin-top: -23px;
+  margin-top: -13px;
   font-size: 40px;
   color: rgba(6, 90, 244, 0.79);
 }
 
 .headtitle2 {
   margin: 5px;
-  left: -160px;
+  left: -130px;
   position: relative;
   color: rgba(6, 90, 244, 0.79);
 }
 .hrstyle2{
   float: left;
   width: 80px;
+  left: 35px;
+  position: relative;
   height: 2px;
   background-color: rgba(6, 90, 244, 0.79);
 }

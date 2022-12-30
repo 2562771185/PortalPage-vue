@@ -147,15 +147,15 @@ export default {
 .app-container1 {
   text-align: center; /*让div内部文字居中*/
   border-radius: 20px;
-  width: 1100px;
-  height: 350px;
-  margin: auto;
+  width: 900px;
+  height: 300px;
   padding: 0;
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  /*border: 1px red solid;*/
 }
 
 .text {
@@ -187,7 +187,7 @@ export default {
   height: auto;
   width: 100%;
   position: relative;
-  overflow: auto;
+  /*overflow: auto;*/
   display: flex;
   flex-wrap: wrap;
   /*justify-content: space-around;*/
@@ -195,13 +195,13 @@ export default {
 
 .box-card {
   text-align: left;
-  width: 25%;
+  width: 28%;
   border-radius: 15px;
   height: 100px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   padding: 5px;
-  margin-left: 10px;
-  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-bottom: 30px;
   max-height: 110px;
   background-color: rgba(242, 244, 247, 0.4);
 }
@@ -218,13 +218,13 @@ export default {
 
 .headtitle1 {
   margin: 5px;
-  left: -490px;
+  left: -375px;
   position: relative;
   color: rgba(6, 90, 244, 0.79);
 }
 .hrstyle1{
   float: left;
-  left: 20px;
+  left: 38px;
   position: relative;
   width: 80px;
   height: 2px;
