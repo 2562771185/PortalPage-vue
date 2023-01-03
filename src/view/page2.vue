@@ -7,32 +7,32 @@
         <div class="iconstyle">
           <i class="el-icon-s-home"></i>
         </div>
-        <div class="item2" @click="goPage(1)">
-          项目库
+        <div class="item2">
+          <a :href="goPage(1)" target="_blank">项目库</a>
         </div>
       </el-card>
       <el-card class="box-card2">
         <div class="iconstyle">
           <i class="el-icon-star-on"></i>
         </div>
-        <div class=" item2" @click="goPage(2)">
-          我的收藏
+        <div class=" item2">
+          <a :href="goPage(2)" target="_blank">我的收藏</a>
         </div>
       </el-card>
       <el-card class="box-card2">
         <div class="iconstyle">
           <i class="el-icon-pie-chart"></i>
         </div>
-        <div class=" item2" @click="goPage(3)">
-          进度上报
+        <div class=" item2">
+          <a :href="goPage(2)" target="_blank">进度上报</a>
         </div>
       </el-card>
       <el-card class="box-card2">
         <div class="iconstyle">
           <i class="el-icon-chat-line-square"></i>
         </div>
-        <div class=" item2" @click="goPage(4)">
-          项目投资计划
+        <div class=" item2">
+          <a :href="goPage(2)" target="_blank">项目投资计划</a>
         </div>
       </el-card>
     </div>
@@ -84,8 +84,17 @@ export default {
   },
   watch: {},
   methods: {
-    goPage() {
-      console.log("goPage")
+    goPage(val) {
+      let url = ""
+      switch (val) {
+        case 1:
+          url = global.host + '/yc/static/wsjrj/modeldisplay5/index.html';
+          break;
+        default:
+          url = "https://www.baidu.com/"
+      }
+      // window.open(url, "blank");
+      return url;
     },
     getPage(num, size) {
       // axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
@@ -137,7 +146,10 @@ export default {
   margin-top: -10px;
   font-size: 13px;
   font-weight: bolder;
-  cursor: pointer;
+}
+
+.item2:hover {
+  cursor: pointer
 }
 
 .box2 {
@@ -177,12 +189,18 @@ export default {
   position: relative;
   color: rgba(6, 90, 244, 0.79);
 }
-.hrstyle2{
+
+.hrstyle2 {
   float: left;
   width: 80px;
   left: 35px;
   position: relative;
   height: 2px;
   background-color: rgba(6, 90, 244, 0.79);
+}
+
+a {
+  text-decoration: none;
+  color: #20010b;
 }
 </style>

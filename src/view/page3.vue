@@ -99,7 +99,7 @@ export default {
   font-size: 20px;
   font-weight: bolder;
   cursor: pointer;
-  color: rgb(10, 0, 14);
+  color: white;
   /*border: 1px #0157f1 solid;*/
 }
 
@@ -142,6 +142,6 @@ export default {
   width: 350px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-  background-color: rgba(6, 90, 244, 0.3);
+  background-color: rgba(6, 90, 244, 0.53);
 }
 </style>
