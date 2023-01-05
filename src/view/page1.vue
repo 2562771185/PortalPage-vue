@@ -23,7 +23,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-cooperation"></i>批文超时</span>
+          <span class="title"><i class="el-icon-s-check"></i>开工项目</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -33,7 +33,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-error"></i>投资未达标</span>
+          <span class="title"><i class="el-icon-s-claim"></i>竣工项目</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -43,7 +43,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-finance"></i>批文预警</span>
+          <span class="title"><i class="el-icon-s-finance"></i>投资未达标</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -53,7 +53,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-data"></i>投资超额</span>
+          <span class="title"><i class="el-icon-s-flag"></i>投资超额</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -123,7 +123,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .app-container1 {
   text-align: center; /*让div内部文字居中*/
   border-radius: 20px;

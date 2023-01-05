@@ -157,7 +157,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .app-container2 {
   text-align: center; /*让div内部文字居中*/
   width: 400px;
