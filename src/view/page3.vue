@@ -4,7 +4,7 @@
     <hr class="hrstyle3">
     <div class="box3">
       <ul class="infinite-list">
-        <li v-for="i in listData" class="infinite-list-item"><span class="text3">{{ i }}</span></li>
+        <li v-for="i in listData" class="infinite-list-item"><span class="text3" @click="goPage2(i)">{{ i }}</span></li>
       </ul>
     </div>
   </div>
@@ -28,10 +28,6 @@ export default {
       pageNum: 1,
       pageSize: 8,
       total: 100,
-      xmmc: "",
-      xmyz: "",
-      zrdw: "",
-      xmcj: "",
     }
   },
   mounted() {
@@ -39,41 +35,64 @@ export default {
   created() {
     var token = Cookies.get("access_token");
     this.mytoken = {Authorization: token}
-    this.getPage(1, 8)
   },
   watch: {},
   methods: {
-    goPage() {
-      console.log("goPage")
+    goPage(val) {
+      // console.log(val)
+      let url = ""
+      switch (val) {
+        case '自治区级项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/c7a8ea97c08a82a7213f2bad7cc5f258';
+          break;
+        case '南宁市级项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/4811e6f35682da2b8c6bf65644d4f077';
+          break;
+        case '西乡塘区级项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/1dabaf47f61ef7be55c02d6387b1d48a';
+          break;
+        case '旧城区改造项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/ba7203f1af557172c490f147b46a7207';
+          break;
+        case '其他项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/08628055e7b4e986b59f4fa7422d04d2';
+          break;
+        default:
+          url = "https://www.baidu.com/"
+      }
+      return url;
     },
-    getPage(num, size) {
-      // axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
-      //     "&xmmc=" + this.xmmc + "&xmyz=" + this.xmyz + "&zrdw=" + this.zrdw + "&xmcj=" + this.xmcj).then(res => {
-      //   this.tableData = res.data.result.list
-      //   this.total = res.data.result.total
-      // })
-    },
-    handleCurrentChange(val) {
-      this.pageNum = val
-      // console.log(`当前页: ${val}`);
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
-      this.pageSize = val
-      this.pageNum = 1
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    searchKeyWord() {
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    clearSearch() {
-      this.xmmc = ""
-      this.xmcj = ""
-      this.zrdw = ""
-      this.xmyz = ""
-      this.pageNum = 1
-      this.getPage(1, this.pageSize)
+    goPage2(val) {
+      let url = ""
+      switch (val) {
+        case '自治区级项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/c7a8ea97c08a82a7213f2bad7cc5f258';
+          window.parent
+              .tabAddAndShow(url, val, '123asdf', false, '', 1);
+          break;
+        case '南宁市级项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/4811e6f35682da2b8c6bf65644d4f077';
+          window.parent
+              .tabAddAndShow(url, val, '1123fsdfsd', false, '', 1);
+          break;
+        case '西乡塘区级项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/1dabaf47f61ef7be55c02d6387b1d48a';
+          window.parent
+              .tabAddAndShow(url, val, 'sdf234', false, '', 1);
+          break;
+        case '旧城区改造项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/ba7203f1af557172c490f147b46a7207';
+          window.parent
+              .tabAddAndShow(url, val, 'fsda23432sda', false, '', 1);
+          break;
+        case '其他项目':
+          url = global.host + '/yc/formDesign/index.html#/listView/08628055e7b4e986b59f4fa7422d04d2';
+          window.parent
+              .tabAddAndShow(url, val, '23435dfsf', false, '', 1);
+          break;
+        default:
+          url = "https://www.baidu.com/"
+      }
     },
   }
 }
@@ -98,8 +117,8 @@ export default {
   margin-left: 10px;
   font-size: 20px;
   font-weight: bolder;
-  cursor: pointer;
   color: white;
+  cursor: pointer;
   /*border: 1px #0157f1 solid;*/
 }
 

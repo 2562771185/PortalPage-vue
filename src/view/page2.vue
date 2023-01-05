@@ -4,35 +4,43 @@
     <hr class="hrstyle2">
     <div class="box2">
       <el-card class="box-card2">
-        <div class="iconstyle">
-          <i class="el-icon-s-home"></i>
-        </div>
-        <div class="item2">
-          <a :href="goPage(1)" target="_blank">项目库</a>
+        <a :href="goPage(1)" target="_blank">
+          <div class="iconstyle">
+            <i class="el-icon-s-home"></i>
+          </div>
+          <div class="item2">
+            项目库
+          </div>
+        </a>
+      </el-card>
+      <el-card class="box-card2">
+        <div @click="goPage2(2)" style="cursor:pointer;">
+          <div class="iconstyle">
+            <i class="el-icon-star-on"></i>
+          </div>
+          <div class=" item2">
+            我的收藏
+          </div>
         </div>
       </el-card>
       <el-card class="box-card2">
-        <div class="iconstyle">
-          <i class="el-icon-star-on"></i>
-        </div>
-        <div class=" item2">
-          <a :href="goPage(2)" target="_blank">我的收藏</a>
-        </div>
-      </el-card>
-      <el-card class="box-card2">
-        <div class="iconstyle">
-          <i class="el-icon-pie-chart"></i>
-        </div>
-        <div class=" item2">
-          <a :href="goPage(2)" target="_blank">进度上报</a>
+        <div @click="goPage2(3)" style="cursor:pointer;">
+          <div class="iconstyle">
+            <i class="el-icon-pie-chart"></i>
+          </div>
+          <div class=" item2">
+            进度上报
+          </div>
         </div>
       </el-card>
       <el-card class="box-card2">
-        <div class="iconstyle">
-          <i class="el-icon-chat-line-square"></i>
-        </div>
-        <div class=" item2">
-          <a :href="goPage(2)" target="_blank">项目投资计划</a>
+        <div @click="goPage2(4)" style="cursor:pointer;">
+          <div class="iconstyle">
+            <i class="el-icon-chat-line-square"></i>
+          </div>
+          <div class=" item2">
+            项目投资计划
+          </div>
         </div>
       </el-card>
     </div>
@@ -50,19 +58,6 @@ export default {
   name: 'page1',
   data() {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }],
       actionHost: global.host,
       msg: "",
       mytoken: null,
@@ -80,7 +75,6 @@ export default {
   created() {
     var token = Cookies.get("access_token");
     this.mytoken = {Authorization: token}
-    this.getPage(1, 8)
   },
   watch: {},
   methods: {
@@ -90,11 +84,46 @@ export default {
         case 1:
           url = global.host + '/yc/static/wsjrj/modeldisplay5/index.html';
           break;
+        case 2:
+          url = global.host + '/yc/formDesign/index.html#/listView/45c0a2343fdd7b5ec6dc986bc867e54b';
+          break;
+        case 3:
+          url = global.host + '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
+          break;
+        case 4:
+          url = global.host + '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
+          break;
         default:
           url = "https://www.baidu.com/"
       }
-      // window.open(url, "blank");
       return url;
+    },
+    goPage2(val) {
+      let url = ""
+      switch (val) {
+        case 1:
+          url = global.host + '/yc/formDesign/index.html#/formView/6e8c83a80c455af5a73eeba93308481e';
+          window.parent
+              .tabAddAndShow(url, '项目库', val, false, '', 1);
+          break;
+        case 2:
+          url = global.host + '/yc/formDesign/index.html#/listView/45c0a2343fdd7b5ec6dc986bc867e54b';
+          window.parent
+              .tabAddAndShow(url, '我的收藏', val, false, '', 1);
+          break;
+        case 3:
+          url = global.host + '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
+          window.parent
+              .tabAddAndShow(url, '进度上报', val, false, '', 1);
+          break;
+        case 4:
+          url = global.host + '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
+          window.parent
+              .tabAddAndShow(url, '项目投资计划', val, false, '', 1);
+          break;
+        default:
+          url = "https://www.baidu.com/"
+      }
     },
     getPage(num, size) {
       // axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
