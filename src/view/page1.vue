@@ -87,39 +87,10 @@ export default {
   created() {
     var token = Cookies.get("access_token");
     this.mytoken = {Authorization: token}
-    this.getPage(1, 8)
   },
   watch: {},
   methods: {
-    getPage(num, size) {
-      // axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
-      //     "&xmmc=" + this.xmmc + "&xmyz=" + this.xmyz + "&zrdw=" + this.zrdw + "&xmcj=" + this.xmcj).then(res => {
-      //   this.tableData = res.data.result.list
-      //   this.total = res.data.result.total
-      // })
-    },
-    handleCurrentChange(val) {
-      this.pageNum = val
-      // console.log(`当前页: ${val}`);
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
-      this.pageSize = val
-      this.pageNum = 1
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    searchKeyWord() {
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    clearSearch() {
-      this.xmmc = ""
-      this.xmcj = ""
-      this.zrdw = ""
-      this.xmyz = ""
-      this.pageNum = 1
-      this.getPage(1, this.pageSize)
-    },
+
   }
 }
 </script>

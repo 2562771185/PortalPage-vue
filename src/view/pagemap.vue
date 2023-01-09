@@ -5,38 +5,58 @@
     <div class="box">
       <el-card class="box-card1">
         <div class="item4">
-          我参与的项目：12
+          我参与的项目:{{ myInvolvedProjectNum }}
         </div>
       </el-card>
       <el-card class="box-card2">
         <div class="item4">
-          我关注的项目：21
+          我关注的项目:{{ myCareProjectNum }}
         </div>
       </el-card>
       <el-card class="box-card3">
         <div class="item4">
-          预警的项目：11
+          预警的项目:{{ projectWarningNum }}
         </div>
       </el-card>
       <el-card class="box-card4">
         <div class="item5">
           项目名称：
-          <el-input v-model="xmmc" size="mini" placeholder="请输入项目名称" style="width: 200px;margin-right: 10px"></el-input>
-          <el-button type="success" size="mini" plain>查询</el-button>
+          <el-autocomplete
+              v-model="keyword"
+              :fetch-suggestions="querySearchAsync"
+              size="mini"
+              placeholder="请输入项目名称进行搜索"
+              clearable
+              @select="handleSelect"
+              :trigger-on-focus="false"
+              @clear="blurForBug"
+              style="width: 220px;margin-right: 10px"
+          ></el-autocomplete>
+          <el-button type="success" size="mini" plain @click="clear">重置</el-button>
         </div>
       </el-card>
     </div>
-    <baidu-map class="map" :center="center" @ready="handler" :zoom="14" :scroll-wheel-zoom="true">
-      <bm-marker v-for="marker of markers" :position="{lng: marker.lng, lat: marker.lat}"
+    <!--    经度<input v-model.number="center.lng">-->
+    <!--    维度<input v-model.number="center.lat">-->
+    <!--    缩放等级<input v-model.number="zoom">-->
+    <baidu-map class="map" :center="center" @ready="handler"
+               :zoom="zoom" :scroll-wheel-zoom="true"
+               @moving="syncCenterAndZoom"
+               @moveend="syncCenterAndZoom"
+               @zoomend="syncCenterAndZoom">
+      <bm-marker v-for="marker of markers" :key="marker.xmmc" :position="{lng: marker.jd, lat: marker.wd}"
                  @click="lookDetail(marker)"
       >
-        <el-tooltip class="tip" effect="dark" :content="marker.detail" placement="top">
+        <!--        鼠标移入显示信息-->
+        <el-tooltip class="tip" effect="dark" :content="marker.ztz" placement="top">
+          <!--          自定义覆盖物-->
           <MyOverLay
               class="showDetail"
-              :position="{lng: marker.lng, lat: marker.lat}"
-              :text="marker.name"
-              :detail="marker.detail"
+              :position="{lng: marker.jd, lat: marker.wd}"
+              :text="marker.xmmc"
+              :detail="marker.ztz"
               :active="marker.showFlag"
+              :type="marker.type"
               @mouseover.native="marker.showFlag = true"
               @mouseleave.native="marker.showFlag = false">
           </MyOverLay>
@@ -52,8 +72,8 @@
 <script>
 import axios from 'axios'
 import global from "@/common/Global";
-import Cookies from 'js-cookie'
 import MyOverLay from "@/components/MyOverLay";
+import request from "@/utils/request";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -62,56 +82,19 @@ export default {
   components: {MyOverLay},
   data() {
     return {
+      myCareProjectNum: 0,
+      myInvolvedProjectNum: 0,
+      projectWarningNum: 0,
+      searchList: [],
       active: false,
-      actionHost: global.host,
       msg: "",
-      mytoken: null,
       center: {lng: 108.297296, lat: 22.851574},
-      zoom: 0,
-      xmmc: '',
+      zoom: 14,
+      keyword: '',
       markers: [
         {
-          lng: 108.298733,
-          lat: 22.875817,
-          name: '南宁市西乡塘区万达广场',
-          detail: '总投资1000万',
           showFlag: false //flag放在每一条数据里
         },
-        {
-          lng: 108.319861,
-          lat: 22.849643,
-          name: '南宁市西乡塘区地委大院',
-          detail: '总投资1000万',
-          showFlag: false
-        },
-        {
-          lng: 108.275536,
-          lat: 22.85172,
-          name: '南宁市西乡塘区高新苑',
-          detail: '总投资3000万',
-          showFlag: false
-        },
-        {
-          lng: 108.275305,
-          lat: 22.841316,
-          name: '南宁市西乡塘区动物园',
-          detail: '总投资6000万',
-          showFlag: false
-        },
-        {
-          lng: 108.297296,
-          lat: 22.851574,
-          name: '南宁市西乡塘区广西大学',
-          detail: '总投资1000万',
-          showFlag: false
-        },
-        {
-          lng: 108.298302,
-          lat: 22.866094,
-          name: '南宁市西乡塘区花卉公园',
-          detail: '总投资7000万',
-          showFlag: false
-        }
       ],
       infoWindow: {
         info: {}
@@ -122,17 +105,65 @@ export default {
   mounted() {
   },
   created() {
-    var token = Cookies.get("access_token");
-    this.mytoken = {Authorization: token}
+    this.getMapList()
   },
   watch: {},
   methods: {
+    syncCenterAndZoom(e) {
+      const {lng, lat} = e.target.getCenter()
+      this.center.lng = lng
+      this.center.lat = lat
+      this.zoom = e.target.getZoom()
+    },
+    getMapList() {
+      request.get('/map/list').then(res => {
+        for (let i of res.data.result) {
+          i.showFlag = false;
+          i.ztz = '总投资' + i.ztz + '万'
+        }
+        this.markers = res.data.result;
+        this.myCareProjectNum = res.data.result.length
+      })
+    },
+    clear() {
+      this.center.lng = 108.289403
+      this.center.lat = 22.863727
+      this.keyword = ''
+      this.zoom = 14
+    },
+    querySearchAsync(queryString, cb) {
+      if (queryString == null || queryString === '') return;
+      let list = [{}];
+      const val = this.keyword.trim();
+      if (val === '' || val == null) return;
+      request.get('/map/find?keyword=' + val).then(res => {
+        //在这里为这个数组中每一个对象加一个value字段, 因为autocomplete只识别value字段并在下拉列中显示
+        for (let i of res.data.result) {
+          i.value = i.xmmc;  //将想要展示的数据作为value
+        }
+        list = res.data.result;
+        if (list.length <= 0) {
+          this.$message({
+            showClose: true,
+            message: '无相关数据.....',
+            type: 'warning',
+            duration: 800
+          });
+        }
+        cb(list);
+      })
+    },
+    handleSelect(item) {
+      // console.log(item);
+      this.center = {lng: item.jd, lat: item.wd}
+      this.zoom = 16
+    },
     handler({BMap, map}) {
       // 22.857468170111016, 108.29227804828892
       console.log(BMap, map)
-      this.center.lng = 108.29227804828892
-      this.center.lat = 22.857468170111016
-      this.zoom = 14
+      this.center.lng = 108.289403
+      this.center.lat = 22.863727
+      // this.zoom = 14
     },
     // 点击点坐标赋值
     lookDetail(marker) {
@@ -147,7 +178,9 @@ export default {
     infoWindowOpen(marker) {
       marker.showFlag = true
     },
-
+    blurForBug() {
+      document.activeElement.blur()
+    }
   }
 }
 </script>
@@ -163,7 +196,7 @@ export default {
 
 .map {
   width: 100%;
-  height: 400px;
+  height: 600px;
 }
 
 .headtitle {
@@ -184,7 +217,7 @@ export default {
 
 .box {
   margin-top: 20px;
-  width: 1000px;
+  width: 1100px;
   height: auto;
   margin-bottom: 3px;
   /*border: 1px red solid;*/
@@ -193,7 +226,7 @@ export default {
 .box-card1 {
   position: relative;
   left: -75px;
-  width: 150px;
+  width: 170px;
   height: 40px;
   display: inline-block;
   background-color: #42b983;
@@ -202,7 +235,7 @@ export default {
 .box-card2 {
   position: relative;
   left: -75px;
-  width: 150px;
+  width: 170px;
   height: 40px;
   display: inline-block;
   background-color: #dca639;
@@ -211,7 +244,7 @@ export default {
 .box-card3 {
   position: relative;
   left: -75px;
-  width: 150px;
+  width: 170px;
   height: 40px;
   display: inline-block;
   background-color: rgba(237, 10, 10, 0.69);
@@ -220,7 +253,7 @@ export default {
 .box-card4 {
   position: relative;
   left: -75px;
-  width: 400px;
+  width: 412px;
   height: 40px;
   display: inline-block;
   /*background-color: rgba(43, 111, 235, 0.68);*/
@@ -228,15 +261,15 @@ export default {
 
 .item4 {
   position: relative;
-  bottom: 9px;
-  font-size: 13px;
+  bottom: 11px;
+  font-size: 17px;
   /*border: 1px greenyellow solid;*/
 }
 
 .item5 {
   position: relative;
   bottom: 13px;
-  font-size: 14px;
+  font-size: 16px;
   /*border: 1px #ed0a0a solid;*/
 }
 </style>
