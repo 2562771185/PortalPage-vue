@@ -4,13 +4,15 @@
       :class="{sample: type == null,sample1:type===1, sample2:type===2, sample3:type===3,active}"
       pane="labelPane"
       @draw="draw">
-    <div v-text="text" @click="handleClick"></div>
+    <div v-text="text" @click="handleClick(id)"></div>
   </bm-overlay>
 </template>
 
 <script>
+import Global from "@/common/Global";
+
 export default {
-  props: ['text', 'detail', 'position', 'active', 'type'],
+  props: ['text', 'detail', 'position', 'active', 'type', 'id'],
   watch: {
     position: {
       handler() {
@@ -20,14 +22,10 @@ export default {
     }
   },
   methods: {
-    handleClick() {
-      const h = this.$createElement;
-      this.$message({
-        message: h('p', null, [
-          h('span', null, this.text),
-          h('i', {style: 'color: teal'}, this.detail)
-        ])
-      });
+    handleClick(id) {
+      // console.log(id)
+      let url = Global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
+      window.parent.tabAddAndShow(url, this.text, id, false, '', 1);
     },
     draw({el, BMap, map}) {
       const {lng, lat} = this.position
@@ -57,7 +55,7 @@ export default {
   margin: -48px;
   width: 200px;
   line-height: 20px;
-  background: #42b983;
+  background: rgba(66, 185, 131, 0.86);
   overflow: hidden;
   box-shadow: 0 0 5px #000;
   color: #fff;
@@ -83,7 +81,7 @@ export default {
   margin: -48px;
   width: 200px;
   line-height: 20px;
-  background: rgba(237, 10, 10, 0.69);
+  background: rgba(237, 10, 10, 0.86);
   overflow: hidden;
   box-shadow: 0 0 5px #000;
   color: #fff;

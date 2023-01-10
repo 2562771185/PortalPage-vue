@@ -5,46 +5,56 @@
     <div class="box">
       <el-card class="box-card1">
         <div class="item4">
-          我参与的项目:{{ myInvolvedProjectNum }}
+          我参与的项目:{{ myJoinProjectCount }}
         </div>
       </el-card>
       <el-card class="box-card2">
         <div class="item4">
-          我关注的项目:{{ myCareProjectNum }}
+          我关注的项目:{{ myCareProjectCount }}
         </div>
       </el-card>
       <el-card class="box-card3">
         <div class="item4">
-          预警的项目:{{ projectWarningNum }}
+          预警的项目:{{ warningProjectCount }}
         </div>
       </el-card>
       <el-card class="box-card4">
         <div class="item5">
           项目名称：
           <el-autocomplete
+              popper-class="my-autocomplete"
+              popper-append-to-body="false"
               v-model="keyword"
               :fetch-suggestions="querySearchAsync"
               size="mini"
               placeholder="请输入项目名称进行搜索"
               clearable
               @select="handleSelect"
-              :trigger-on-focus="false"
               @clear="blurForBug"
               style="width: 220px;margin-right: 10px"
-          ></el-autocomplete>
+          >
+            <template slot-scope="{ item }">
+              <div
+                   :class="{package1: item.type===1, package2:item.type===2, package3:item.type===3}"
+              >
+                <div class="package-path-value">{{ item.value }}</div>
+                <span class="package-path-name">{{ item.ztz }}</span>
+              </div>
+            </template>
+          </el-autocomplete>
           <el-button type="success" size="mini" plain @click="clear">重置</el-button>
         </div>
       </el-card>
     </div>
-    <!--    经度<input v-model.number="center.lng">-->
-    <!--    维度<input v-model.number="center.lat">-->
-    <!--    缩放等级<input v-model.number="zoom">-->
+    <!--        经度<input v-model.number="center.lng">-->
+    <!--        维度<input v-model.number="center.lat">-->
+    <!--        缩放等级<input v-model.number="zoom">-->
     <baidu-map class="map" :center="center" @ready="handler"
                :zoom="zoom" :scroll-wheel-zoom="true"
                @moving="syncCenterAndZoom"
                @moveend="syncCenterAndZoom"
                @zoomend="syncCenterAndZoom">
-      <bm-marker v-for="marker of markers" :key="marker.xmmc" :position="{lng: marker.jd, lat: marker.wd}"
+      <bm-marker v-for="marker of markers" :key="marker.id" :position="{lng: marker.jd, lat: marker.wd}"
                  @click="lookDetail(marker)"
       >
         <!--        鼠标移入显示信息-->
@@ -54,6 +64,7 @@
               class="showDetail"
               :position="{lng: marker.jd, lat: marker.wd}"
               :text="marker.xmmc"
+              :id="marker.id"
               :detail="marker.ztz"
               :active="marker.showFlag"
               :type="marker.type"
@@ -70,21 +81,17 @@
 
 
 <script>
-import axios from 'axios'
-import global from "@/common/Global";
 import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'page3',
-  // eslint-disable-next-line vue/no-unused-components
   components: {MyOverLay},
   data() {
     return {
-      myCareProjectNum: 0,
-      myInvolvedProjectNum: 0,
-      projectWarningNum: 0,
+      myCareProjectCount: 0,
+      myJoinProjectCount: 0,
+      warningProjectCount: 0,
       searchList: [],
       active: false,
       msg: "",
@@ -92,9 +99,6 @@ export default {
       zoom: 14,
       keyword: '',
       markers: [
-        {
-          showFlag: false //flag放在每一条数据里
-        },
       ],
       infoWindow: {
         info: {}
@@ -117,50 +121,63 @@ export default {
     },
     getMapList() {
       request.get('/map/list').then(res => {
-        for (let i of res.data.result) {
-          i.showFlag = false;
-          i.ztz = '总投资' + i.ztz + '万'
+        if (res.code === 200) {
+          for (let i of res.result.list) {
+            i.showFlag = false;
+            i.value = i.xmmc;
+            i.ztz = '总投资' + i.ztz + '万'
+          }
+          this.markers = res.result.list;
+          this.myCareProjectCount = res.result.myCareProjectCount
+          this.myJoinProjectCount = res.result.myJoinProjectCount
+          this.warningProjectCount = res.result.warningProjectCount
+        } else {
+          this.$message({
+            showClose: true,
+            message: '未登录,无法操作！',
+            type: 'error',
+            duration: 2000
+          });
         }
-        this.markers = res.data.result;
-        this.myCareProjectNum = res.data.result.length
       })
     },
     clear() {
+      //回到初始位置
       this.center.lng = 108.289403
       this.center.lat = 22.863727
       this.keyword = ''
       this.zoom = 14
     },
     querySearchAsync(queryString, cb) {
-      if (queryString == null || queryString === '') return;
-      let list = [{}];
-      const val = this.keyword.trim();
-      if (val === '' || val == null) return;
-      request.get('/map/find?keyword=' + val).then(res => {
-        //在这里为这个数组中每一个对象加一个value字段, 因为autocomplete只识别value字段并在下拉列中显示
-        for (let i of res.data.result) {
-          i.value = i.xmmc;  //将想要展示的数据作为value
-        }
-        list = res.data.result;
-        if (list.length <= 0) {
-          this.$message({
-            showClose: true,
-            message: '无相关数据.....',
-            type: 'warning',
-            duration: 800
-          });
-        }
-        cb(list);
-      })
+      console.log(this.markers)
+      if(this.markers == null || this.markers.length <=0 ){
+        this.$message({
+          showClose: true,
+          message: '无数据..........',
+          type: 'error',
+          duration: 1000
+        });
+        return
+      }
+      var results = queryString ? this.markers.filter(item => {
+        return item.xmmc.includes(queryString)
+      }) : this.markers;
+      if (results.length <= 0) {
+        this.$message({
+          showClose: true,
+          message: '无相关数据，请重新输入项目名称',
+          type: 'warning',
+          duration: 800
+        });
+      }
+      cb(results);
     },
     handleSelect(item) {
-      // console.log(item);
       this.center = {lng: item.jd, lat: item.wd}
-      this.zoom = 16
+      this.zoom = 17
     },
     handler({BMap, map}) {
-      // 22.857468170111016, 108.29227804828892
-      console.log(BMap, map)
+      console.log('地图初始化', BMap, map)
       this.center.lng = 108.289403
       this.center.lat = 22.863727
       // this.zoom = 14
@@ -180,7 +197,8 @@ export default {
     },
     blurForBug() {
       document.activeElement.blur()
-    }
+    },
+
   }
 }
 </script>
@@ -271,5 +289,45 @@ export default {
   bottom: 13px;
   font-size: 16px;
   /*border: 1px #ed0a0a solid;*/
+}
+</style>
+<style lang="scss" scoped>
+
+.my-autocomplete {
+
+  .package-path-value {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #20010b;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .package-path-name {
+    font-size: 14px;
+    color: #f40737;
+  }
+
+  .package1 {
+    padding: 5px;
+    border-radius: 5px;
+    line-height: 25px;
+    margin-bottom: 4px;
+    background-color: rgba(66, 185, 131, 0.8);
+  }
+  .package2 {
+    padding: 5px;
+    border-radius: 5px;
+    line-height: 25px;
+    margin-bottom: 4px;
+    background-color: rgba(220, 166, 57, 0.8);
+  }
+  .package3 {
+    padding: 5px;
+    border-radius: 5px;
+    line-height: 25px;
+    margin-bottom: 4px;
+    background-color: rgba(231, 56, 56, 0.91);
+  }
 }
 </style>
