@@ -27,9 +27,10 @@ const service = axios.create({
 // respone拦截器
 service.interceptors.response.use(
     response => {
+        // console.log("拦截响应:",response)
         // 统一处理状态
         const res = response.data;
-        if (res.code !== 200) { // 需自定义
+        if (res.code == null || res.code !== 200) { // 需自定义
             // 返回异常
             return Promise.reject({
                 status: res.success,
@@ -41,6 +42,7 @@ service.interceptors.response.use(
     },
     // 处理处理错误
     error => {
+        console.log('发生错误：',error)
         ElementUI.Message({
             showClose: true,
             message: error.message,

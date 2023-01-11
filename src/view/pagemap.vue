@@ -35,7 +35,7 @@
           >
             <template slot-scope="{ item }">
               <div
-                   :class="{package1: item.type===1, package2:item.type===2, package3:item.type===3}"
+                  :class="{package1: item.type===1, package2:item.type===2, package3:item.type===3}"
               >
                 <div class="package-path-value">{{ item.value }}</div>
                 <span class="package-path-name">{{ item.ztz }}</span>
@@ -85,7 +85,7 @@ import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
 
 export default {
-  name: 'page3',
+  name: 'page-map',
   components: {MyOverLay},
   data() {
     return {
@@ -98,8 +98,7 @@ export default {
       center: {lng: 108.297296, lat: 22.851574},
       zoom: 14,
       keyword: '',
-      markers: [
-      ],
+      markers: [],
       infoWindow: {
         info: {}
       },
@@ -131,15 +130,24 @@ export default {
           this.myCareProjectCount = res.result.myCareProjectCount
           this.myJoinProjectCount = res.result.myJoinProjectCount
           this.warningProjectCount = res.result.warningProjectCount
-        } else {
+        }
+        if (this.markers.length <= 0) {
           this.$message({
             showClose: true,
-            message: '未登录,无法操作！',
+            message: '获取数据失败!',
             type: 'error',
             duration: 2000
           });
         }
+      }).catch(error =>{
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!'+error,
+          type: 'error',
+          duration: 2000
+        });
       })
+
     },
     clear() {
       //回到初始位置
@@ -149,8 +157,7 @@ export default {
       this.zoom = 14
     },
     querySearchAsync(queryString, cb) {
-      console.log(this.markers)
-      if(this.markers == null || this.markers.length <=0 ){
+      if (this.markers == null || this.markers.length <= 0) {
         this.$message({
           showClose: true,
           message: '无数据..........',
@@ -294,7 +301,15 @@ export default {
 <style lang="scss" scoped>
 
 .my-autocomplete {
-
+  .package1:hover{
+    transform: scale(1.1);
+  }
+  .package2:hover{
+    transform: scale(1.1);
+  }
+  .package3:hover{
+    transform: scale(1.1);
+  }
   .package-path-value {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -315,6 +330,7 @@ export default {
     margin-bottom: 4px;
     background-color: rgba(66, 185, 131, 0.8);
   }
+
   .package2 {
     padding: 5px;
     border-radius: 5px;
@@ -322,6 +338,7 @@ export default {
     margin-bottom: 4px;
     background-color: rgba(220, 166, 57, 0.8);
   }
+
   .package3 {
     padding: 5px;
     border-radius: 5px;

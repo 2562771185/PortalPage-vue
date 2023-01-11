@@ -55,7 +55,7 @@ import Cookies from 'js-cookie'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'page1',
+  name: 'page2',
   data() {
     return {
       actionHost: global.host,

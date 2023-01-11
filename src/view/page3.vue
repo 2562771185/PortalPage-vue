@@ -17,7 +17,6 @@ import global from "@/common/Global";
 import Cookies from 'js-cookie'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'page3',
   data() {
     return {
