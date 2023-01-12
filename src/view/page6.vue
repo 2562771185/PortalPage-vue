@@ -4,44 +4,48 @@
     <hr class="hrstyle">
     <div class="box">
       <div class="box2">
-        <el-badge :value="12" class="item" >
-          <el-button size="small" @click="getList(-1)">我创建的项目</el-button>
+        <el-badge :value="this.total0" :max="99" class="item">
+          <el-button size="small" @click="getList(1,10,-1)">我创建的项目</el-button>
         </el-badge>
-        <el-badge :value="12" class="item" >
-          <el-button size="small" @click="getList(0)">待上报的项目</el-button>
+        <el-badge :value="this.total1" :max="99" class="item">
+          <el-button size="small" :max="99" @click="getList(1,10,0)">待上报的项目</el-button>
         </el-badge>
-        <el-badge :value="12" class="item" >
-          <el-button size="small" @click="getList(1)">待审核的项目</el-button>
+        <el-badge :value="this.total2" :max="99" class="item">
+          <el-button size="small" @click="getList(1,10,1)">待审核的项目</el-button>
         </el-badge>
-        <el-badge :value="12" class="item" >
-          <el-button size="small" @click="getList(2)">已审核的项目</el-button>
+        <el-badge :value="this.total3" :max="99" class="item">
+          <el-button size="small" @click="getList(1,10,2)">已审核的项目</el-button>
         </el-badge>
       </div>
       <hr>
       <el-table
           :data="tableData"
-          style="width: 100%">
+          style="width: 100%"
+          max-height="450"
+      >
         <el-table-column
             type="index"
             label="序号"
+            align="center"
             width="100">
         </el-table-column>
         <el-table-column
             prop="name"
-            label="名称"
-            width="280">
+            label="流程名称"
+           >
           <template slot-scope="scope">
-            <el-link type="primary">{{ scope.row.instancetitle }}</el-link>
+            <el-link type="primary" @click="getDetail(scope.row.businessid,scope.row.processid,scope.row.instanceid,scope.row.instancetitle)">{{ scope.row.instancetitle }}</el-link>
           </template>
         </el-table-column>
         <el-table-column
             prop="username"
-            label="创建人名称"
-            width="180">
+            label="创建人"
+            align="center"
+            >
         </el-table-column>
         <el-table-column
             prop="date"
-            width="220"
+            align="center"
             label="创建时间">
           <template slot-scope="scope">
             <i class="el-icon-time"></i>
@@ -50,7 +54,11 @@
         </el-table-column>
         <el-table-column
             prop="status"
+            align="center"
             label="状态">
+          <template slot-scope="scope">
+            <el-tag :type="statusStyle(scope.row.status)">{{ scope.row.status }}</el-tag>
+          </template>
         </el-table-column>
       </el-table>
       <div class="page">
@@ -73,41 +81,81 @@
 <script>
 import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
+import Global from "@/common/Global";
 
 export default {
   name: 'page6',
   data() {
     return {
       tableData: [],
+      current: -1,
       pageNum: 1,
       pageSize: 10,
       total: 100,
+      total0: 100,
+      total1: 100,
+      total2: 100,
+      total3: 100,
     }
   },
   mounted() {
   },
   created() {
-    this.getList(-1)
+    this.getList(1, 10, -1)
+    this.getCounts()
   },
   watch: {},
   methods: {
-    getList(val) {
-      request.get("/process/list?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&status="+val).then(res => {
-        console.log(res)
+    getDetail(bid,pid,insid,name){
+      let url = Global.host + `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
+      window.parent.tabAddAndShow(url, name, bid, false, '', 1);
+    },
+    statusStyle(val) {
+      switch (val) {
+        case '待上报':
+          return ''
+        case '待审核':
+          return 'warning'
+        case '已审核入库':
+          return 'success'
+      }
+      return '';
+    },
+    getList(pageNum, pageSize, val) {
+      this.total = 0
+      this.current = val
+      this.pageNum = pageNum
+      this.pageSize = pageSize
+      request.get("/process/list?pageNum=" + pageNum + "&pageSize=" + pageSize + "&status=" + this.current).then(res => {
         this.tableData = res.result.list
         this.total = res.result.total
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!'+error,
+          type: 'error',
+          duration: 2000
+        });
+      })
+    },
+    getCounts() {
+      request.get("/process/counts").then(res => {
+        this.total0 = res.result.count1
+        this.total1 = res.result.count2
+        this.total2 = res.result.count3
+        this.total3 = res.result.count4
       })
     },
     handleCurrentChange(val) {
       this.pageNum = val
       // console.log(`当前页: ${val}`);
-      this.getList(this.pageNum, this.pageSize)
+      this.getList(this.pageNum, this.pageSize, this.current)
     },
     handleSizeChange(val) {
       // console.log(`每页 ${val} 条`);
       this.pageSize = val
       this.pageNum = 1
-      this.getList(this.pageNum, this.pageSize)
+      this.getList(this.pageNum, this.pageSize, this.current)
     },
   }
 }
@@ -144,9 +192,10 @@ export default {
 
 .box {
   margin-top: 35px;
-  width: 1100px;
+  width: 100%;
   height: auto;
   margin-bottom: 3px;
+  /*overflow: auto;*/
   /*border: 1px red solid;*/
 }
 
@@ -154,6 +203,10 @@ export default {
   width: 600px;
   margin: 5px;
   /*border: 1px red solid;*/
+}
+
+.page {
+  text-align: center;
 }
 
 </style>
