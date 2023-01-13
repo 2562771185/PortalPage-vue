@@ -20,7 +20,7 @@
       <hr>
       <el-table
           :data="tableData"
-          style="width: 100%"
+          style="width: 100%;min-height: 450px"
           max-height="450"
       >
         <el-table-column

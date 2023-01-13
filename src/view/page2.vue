@@ -104,22 +104,22 @@ export default {
         case 1:
           url = global.host + '/yc/formDesign/index.html#/formView/6e8c83a80c455af5a73eeba93308481e';
           window.parent
-              .tabAddAndShow(url, '项目库', val, false, '', 1);
+              .tabAddAndShow(url, '项目库', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 2:
-          url = global.host + '/yc/formDesign/index.html#/listView/45c0a2343fdd7b5ec6dc986bc867e54b';
+          url = global.host + '/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0';
           window.parent
-              .tabAddAndShow(url, '我的收藏', val, false, '', 1);
+              .tabAddAndShow(url, '我的收藏', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 3:
           url = global.host + '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
           window.parent
-              .tabAddAndShow(url, '进度上报', val, false, '', 1);
+              .tabAddAndShow(url, '进度上报', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 4:
           url = global.host + '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
           window.parent
-              .tabAddAndShow(url, '项目投资计划', val, false, '', 1);
+              .tabAddAndShow(url, '项目投资计划', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         default:
           url = "https://www.baidu.com/"

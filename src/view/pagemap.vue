@@ -4,7 +4,7 @@
     <hr class="hrstyle">
     <div class="box">
       <el-card class="box-card1">
-        <div class="item4">
+        <div class="item4" @click="goMyJoinProject">
           我参与的项目:{{ myJoinProjectCount }}
         </div>
       </el-card>
@@ -83,6 +83,7 @@
 <script>
 import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
+import Global from "@/common/Global.vue";
 
 export default {
   name: 'page-map',
@@ -112,6 +113,11 @@ export default {
   },
   watch: {},
   methods: {
+    goMyJoinProject() {
+      // this.$message('我参与的项目')
+      let url = Global.host + `/yc/formDesign/index.html#/listView/8bc70ca154cb6911e9c405d40f89311f`;
+      window.parent.tabAddAndShow(url, '我参与的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
     syncCenterAndZoom(e) {
       const {lng, lat} = e.target.getCenter()
       this.center.lng = lng
@@ -139,10 +145,10 @@ export default {
             duration: 2000
           });
         }
-      }).catch(error =>{
+      }).catch(error => {
         this.$message({
           showClose: true,
-          message: '获取数据失败!'+error,
+          message: '获取数据失败!' + error,
           type: 'error',
           duration: 2000
         });
@@ -180,6 +186,14 @@ export default {
       cb(results);
     },
     handleSelect(item) {
+      if (item.jd == "" || item.wd == "") {
+        this.$message({
+          showClose: true,
+          message: '位置信息错误!',
+          type: 'error',
+          duration: 2000
+        });
+      }
       this.center = {lng: item.jd, lat: item.wd}
       this.zoom = 17
     },
@@ -193,14 +207,6 @@ export default {
     lookDetail(marker) {
       marker.showFlag = true;
       this.infoWindow.info = marker;
-    },
-    // 关闭弹窗
-    infoWindowClose(marker) {
-      marker.showFlag = false
-    },
-    // 打开弹窗
-    infoWindowOpen(marker) {
-      marker.showFlag = true
     },
     blurForBug() {
       document.activeElement.blur()
@@ -284,6 +290,10 @@ export default {
   /*background-color: rgba(43, 111, 235, 0.68);*/
 }
 
+.item4:hover {
+  cursor: pointer
+}
+
 .item4 {
   position: relative;
   bottom: 11px;
@@ -301,15 +311,18 @@ export default {
 <style lang="scss" scoped>
 
 .my-autocomplete {
-  .package1:hover{
+  .package1:hover {
     transform: scale(1.1);
   }
-  .package2:hover{
+
+  .package2:hover {
     transform: scale(1.1);
   }
-  .package3:hover{
+
+  .package3:hover {
     transform: scale(1.1);
   }
+
   .package-path-value {
     text-overflow: ellipsis;
     overflow: hidden;

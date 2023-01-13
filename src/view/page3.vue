@@ -42,19 +42,19 @@ export default {
       let url = ""
       switch (val) {
         case '自治区级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/c7a8ea97c08a82a7213f2bad7cc5f258';
+          url = global.host + '/yc/formDesign/index.html#/listView/9a6b23ec57ae36e250479b61dcfde3b1';
           break;
         case '南宁市级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/4811e6f35682da2b8c6bf65644d4f077';
+          url = global.host + '/yc/formDesign/index.html#/listView/ef495f7fd757d4c6f14de68189a78590';
           break;
         case '西乡塘区级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/1dabaf47f61ef7be55c02d6387b1d48a';
+          url = global.host + '/yc/formDesign/index.html#/listView/22f98d067266bf004818b8d429c62814';
           break;
         case '旧城区改造项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/ba7203f1af557172c490f147b46a7207';
+          url = global.host + '/yc/formDesign/index.html#/listView/9c7fff39956342bea5c3ff1b4d644599';
           break;
         case '其他项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/08628055e7b4e986b59f4fa7422d04d2';
+          url = global.host + '/yc/formDesign/index.html#/listView/2bb160d88b3f9a3c4f3b4471478be04c';
           break;
         default:
           url = "https://www.baidu.com/"

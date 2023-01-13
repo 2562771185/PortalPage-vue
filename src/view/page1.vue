@@ -5,7 +5,7 @@
     <div class="box">
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-star-on"></i>我参与的项目</span>
+          <span class="title"><i class="el-icon-s-release"></i>申报超时</span>
         </div>
         <div class="text item">
           50
@@ -13,7 +13,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-release"></i>申报超时</span>
+          <span class="title"><i class="el-icon-s-finance"></i>投资未达标</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -23,7 +23,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-check"></i>开工项目</span>
+          <span class="title"><i class="el-icon-s-flag"></i>投资超额</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -33,7 +33,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-claim"></i>竣工项目</span>
+          <span class="title" @click="goNotWork"><i class="el-icon-s-open"></i>未开工项目</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -43,7 +43,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-finance"></i>投资未达标</span>
+          <span class="title" @click="goStartWork"><i class="el-icon-s-check"></i>开工项目</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -53,7 +53,7 @@
       </el-card>
       <el-card  class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-flag"></i>投资超额</span>
+          <span class="title" @click="goDoneWork"><i class="el-icon-s-claim"></i>竣工项目</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -71,6 +71,7 @@
 import axios from 'axios'
 import global from "@/common/Global";
 import Cookies from 'js-cookie'
+import Global from "@/common/Global.vue";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -90,7 +91,21 @@ export default {
   },
   watch: {},
   methods: {
-
+    goNotWork(){
+      // this.$message('未开工项目')
+      let url = Global.host + `/yc/formDesign/index.html#/listView/142dc2fb20745634a844308a0bcf19b6`;
+      window.parent.tabAddAndShow(url, '未开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goStartWork(){
+      // this.$message('开工项目')
+      let url = Global.host + `/yc/formDesign/index.html#/listView/debcd933ef4aa27fa4771ecf0629a5ec`;
+      window.parent.tabAddAndShow(url, '开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goDoneWork(){
+      // this.$message('竣工项目')
+      let url = Global.host + `/yc/formDesign/index.html#/listView/e897f9fca086b2af79745aabb0d5d0b7`;
+      window.parent.tabAddAndShow(url, '竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
   }
 }
 </script>
@@ -155,6 +170,9 @@ export default {
   margin-bottom: 30px;
   max-height: 110px;
   background-color: rgba(242, 244, 247, 0.4);
+}
+.title:hover {
+  cursor: pointer
 }
 
 .title {
