@@ -32,16 +32,19 @@
         <el-table-column
             prop="name"
             label="流程名称"
-           >
+        >
           <template slot-scope="scope">
-            <el-link type="primary" @click="getDetail(scope.row.businessid,scope.row.processid,scope.row.instanceid,scope.row.instancetitle)">{{ scope.row.instancetitle }}</el-link>
+            <el-link type="primary"
+                     @click="getDetail(scope.row.businessid,scope.row.processid,scope.row.instanceid,scope.row.instancetitle)">
+              {{ scope.row.instancetitle }}
+            </el-link>
           </template>
         </el-table-column>
         <el-table-column
             prop="username"
             label="创建人"
             align="center"
-            >
+        >
         </el-table-column>
         <el-table-column
             prop="date"
@@ -57,7 +60,7 @@
             align="center"
             label="状态">
           <template slot-scope="scope">
-            <el-tag :type="statusStyle(scope.row.status)">{{ scope.row.status }}</el-tag>
+            <el-tag :type="statusStyle(scope.row.runstatus)">{{ scope.row.runstatus }}</el-tag>
           </template>
         </el-table-column>
       </el-table>
@@ -79,11 +82,10 @@
 
 
 <script>
-import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
-import Global from "@/common/Global";
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'page6',
   data() {
     return {
@@ -106,8 +108,8 @@ export default {
   },
   watch: {},
   methods: {
-    getDetail(bid,pid,insid,name){
-      let url = Global.host + `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
+    getDetail(bid, pid, insid, name) {
+      let url =  `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
       window.parent.tabAddAndShow(url, name, bid, false, '', 1);
     },
     statusStyle(val) {
@@ -122,7 +124,7 @@ export default {
       return '';
     },
     getList(pageNum, pageSize, val) {
-      this.total = 0
+      // this.total = 0
       this.current = val
       this.pageNum = pageNum
       this.pageSize = pageSize
@@ -132,7 +134,7 @@ export default {
       }).catch(error => {
         this.$message({
           showClose: true,
-          message: '获取数据失败!'+error,
+          message: '获取数据失败!' + error,
           type: 'error',
           duration: 2000
         });
@@ -148,7 +150,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.pageNum = val
-      // console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`);
       this.getList(this.pageNum, this.pageSize, this.current)
     },
     handleSizeChange(val) {
@@ -178,6 +180,7 @@ export default {
   margin: 5px;
   position: relative;
   left: 7px;
+  top: 10px;
   color: rgba(6, 90, 244, 0.79);
 }
 

@@ -9,7 +9,7 @@
         </div>
       </el-card>
       <el-card class="box-card2">
-        <div class="item4">
+        <div class="item4" @click="goMyCareProject">
           我关注的项目:{{ myCareProjectCount }}
         </div>
       </el-card>
@@ -84,6 +84,7 @@
 import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
 import Global from "@/common/Global.vue";
+import global from "@/common/Global.vue";
 
 export default {
   name: 'page-map',
@@ -114,9 +115,12 @@ export default {
   watch: {},
   methods: {
     goMyJoinProject() {
-      // this.$message('我参与的项目')
-      let url = Global.host + `/yc/formDesign/index.html#/listView/8bc70ca154cb6911e9c405d40f89311f`;
+      let url = `/yc/formDesign/index.html#/listView/8bc70ca154cb6911e9c405d40f89311f`;
       window.parent.tabAddAndShow(url, '我参与的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goMyCareProject() {
+      let url = `/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0`;
+      window.parent.tabAddAndShow(url, '我关注的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     syncCenterAndZoom(e) {
       const {lng, lat} = e.target.getCenter()
@@ -234,6 +238,7 @@ export default {
   margin: 5px;
   position: relative;
   left: 10px;
+  top: 10px;
   color: rgba(6, 90, 244, 0.79);
 }
 
@@ -307,6 +312,7 @@ export default {
   font-size: 16px;
   /*border: 1px #ed0a0a solid;*/
 }
+
 </style>
 <style lang="scss" scoped>
 

@@ -6,10 +6,18 @@
       @draw="draw">
     <div v-text="text" @click="handleClick(id)"></div>
   </bm-overlay>
+<!--  <bm-overlay-->
+<!--      ref="customOverlay"-->
+<!--      :class="{sample: type != null,active}"-->
+<!--      pane="labelPane"-->
+<!--      @draw="draw">-->
+<!--    <div v-text="text" @click="handleClick(id)"></div>-->
+<!--  </bm-overlay>-->
 </template>
 
 <script>
-import Global from "@/common/Global";
+
+import global from "@/common/Global.vue";
 
 export default {
   props: ['text', 'detail', 'position', 'active', 'type', 'id'],
@@ -23,8 +31,7 @@ export default {
   },
   methods: {
     handleClick(id) {
-      // console.log(id)
-      let url = Global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
+      let url =  global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
       window.parent.tabAddAndShow(url, this.text, id, false, '', 1);
     },
     draw({el, BMap, map}) {

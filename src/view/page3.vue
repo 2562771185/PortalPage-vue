@@ -4,7 +4,9 @@
     <hr class="hrstyle3">
     <div class="box3">
       <ul class="infinite-list">
-        <li v-for="i in listData" class="infinite-list-item"><span class="text3" @click="goPage2(i)">{{ i }}</span></li>
+        <li v-for="i in listData" :key="i.id" class="infinite-list-item"><span class="text3" @click="goPage2(i)">{{
+            i
+          }}</span></li>
       </ul>
     </div>
   </div>
@@ -12,11 +14,11 @@
 
 
 <script>
-import axios from 'axios'
 import global from "@/common/Global";
 import Cookies from 'js-cookie'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'page3',
   data() {
     return {
@@ -42,19 +44,19 @@ export default {
       let url = ""
       switch (val) {
         case '自治区级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/9a6b23ec57ae36e250479b61dcfde3b1';
+          url = '/yc/formDesign/index.html#/listView/9a6b23ec57ae36e250479b61dcfde3b1';
           break;
         case '南宁市级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/ef495f7fd757d4c6f14de68189a78590';
+          url = '/yc/formDesign/index.html#/listView/ef495f7fd757d4c6f14de68189a78590';
           break;
         case '西乡塘区级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/22f98d067266bf004818b8d429c62814';
+          url = '/yc/formDesign/index.html#/listView/22f98d067266bf004818b8d429c62814';
           break;
         case '旧城区改造项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/9c7fff39956342bea5c3ff1b4d644599';
+          url = '/yc/formDesign/index.html#/listView/9c7fff39956342bea5c3ff1b4d644599';
           break;
         case '其他项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/2bb160d88b3f9a3c4f3b4471478be04c';
+          url = '/yc/formDesign/index.html#/listView/2bb160d88b3f9a3c4f3b4471478be04c';
           break;
         default:
           url = "https://www.baidu.com/"
@@ -65,32 +67,32 @@ export default {
       let url = ""
       switch (val) {
         case '自治区级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/c7a8ea97c08a82a7213f2bad7cc5f258';
+          url =  '/yc/formDesign/index.html#/listView/9a6b23ec57ae36e250479b61dcfde3b1';
           window.parent
               .tabAddAndShow(url, val, '123asdf', false, '', 1);
           break;
         case '南宁市级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/4811e6f35682da2b8c6bf65644d4f077';
+          url =  '/yc/formDesign/index.html#/listView/ef495f7fd757d4c6f14de68189a78590';
           window.parent
               .tabAddAndShow(url, val, '1123fsdfsd', false, '', 1);
           break;
         case '西乡塘区级项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/1dabaf47f61ef7be55c02d6387b1d48a';
+          url =  '/yc/formDesign/index.html#/listView/22f98d067266bf004818b8d429c62814';
           window.parent
               .tabAddAndShow(url, val, 'sdf234', false, '', 1);
           break;
         case '旧城区改造项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/ba7203f1af557172c490f147b46a7207';
+          url =  '/yc/formDesign/index.html#/listView/9c7fff39956342bea5c3ff1b4d644599';
           window.parent
               .tabAddAndShow(url, val, 'fsda23432sda', false, '', 1);
           break;
         case '其他项目':
-          url = global.host + '/yc/formDesign/index.html#/listView/08628055e7b4e986b59f4fa7422d04d2';
+          url =  '/yc/formDesign/index.html#/listView/2bb160d88b3f9a3c4f3b4471478be04c';
           window.parent
               .tabAddAndShow(url, val, '23435dfsf', false, '', 1);
           break;
         default:
-          url = "https://www.baidu.com/"
+          url =  "/yc/portal/loginPortal/afterLogin.do"
       }
     },
   }
@@ -133,9 +135,10 @@ export default {
 
 
 .headtitle3 {
-  margin: 5px;
+  margin-bottom: 0px;
   position: relative;
-  left: 10px;
+  left: 17px;
+  top: 5px;
   color: rgba(6, 90, 244, 0.79);
 }
 

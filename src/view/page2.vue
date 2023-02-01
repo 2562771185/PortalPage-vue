@@ -4,14 +4,14 @@
     <hr class="hrstyle2">
     <div class="box2">
       <el-card class="box-card2">
-        <a :href="goPage(1)" target="_blank">
+        <div @click="goPage2(1)" style="cursor:pointer;">
           <div class="iconstyle">
             <i class="el-icon-s-home"></i>
           </div>
           <div class="item2">
             项目库
           </div>
-        </a>
+        </div>
       </el-card>
       <el-card class="box-card2">
         <div @click="goPage2(2)" style="cursor:pointer;">
@@ -49,7 +49,6 @@
 
 
 <script>
-import axios from 'axios'
 import global from "@/common/Global";
 import Cookies from 'js-cookie'
 
@@ -82,16 +81,16 @@ export default {
       let url = ""
       switch (val) {
         case 1:
-          url = global.host + '/yc/static/wsjrj/modeldisplay5/index.html';
+          url = '/yc/static/wsjrj/modeldisplay5/index.html';
           break;
         case 2:
-          url = global.host + '/yc/formDesign/index.html#/listView/45c0a2343fdd7b5ec6dc986bc867e54b';
+          url = '/yc/formDesign/index.html#/listView/45c0a2343fdd7b5ec6dc986bc867e54b';
           break;
         case 3:
-          url = global.host + '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
+          url = '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
           break;
         case 4:
-          url = global.host + '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
+          url = '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
           break;
         default:
           url = "https://www.baidu.com/"
@@ -102,72 +101,42 @@ export default {
       let url = ""
       switch (val) {
         case 1:
-          url = global.host + '/yc/formDesign/index.html#/formView/6e8c83a80c455af5a73eeba93308481e';
+          url =  '/yc/formDesign/index.html#/listView/e7795d9252400b6f79b71f0ea2901036';
           window.parent
               .tabAddAndShow(url, '项目库', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 2:
-          url = global.host + '/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0';
+          url =  '/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0';
           window.parent
               .tabAddAndShow(url, '我的收藏', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 3:
-          url = global.host + '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
+          url =  '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
           window.parent
               .tabAddAndShow(url, '进度上报', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 4:
-          url = global.host + '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
+          url =  '/yc/formDesign/index.html#/listView/d8a9775c4077cc9c5f0d5d23ecbbc903';
           window.parent
               .tabAddAndShow(url, '项目投资计划', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         default:
-          url = "https://www.baidu.com/"
+          url =  "/yc/portal/loginPortal/afterLogin.do"
       }
-    },
-    getPage(num, size) {
-      // axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
-      //     "&xmmc=" + this.xmmc + "&xmyz=" + this.xmyz + "&zrdw=" + this.zrdw + "&xmcj=" + this.xmcj).then(res => {
-      //   this.tableData = res.data.result.list
-      //   this.total = res.data.result.total
-      // })
-    },
-    handleCurrentChange(val) {
-      this.pageNum = val
-      // console.log(`当前页: ${val}`);
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
-      this.pageSize = val
-      this.pageNum = 1
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    searchKeyWord() {
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    clearSearch() {
-      this.xmmc = ""
-      this.xmcj = ""
-      this.zrdw = ""
-      this.xmyz = ""
-      this.pageNum = 1
-      this.getPage(1, this.pageSize)
     },
   }
 }
 </script>
 <style scoped>
 .app-container2 {
-  text-align: center; /*让div内部文字居中*/
-  width: 400px;
-  height: 300px;
+  margin: 0;
+  width: 92%;
+  height: 92%;
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  /*border: 1px red solid;*/
 }
 
 
@@ -184,13 +153,14 @@ export default {
 .box2 {
   text-align: left;
   margin: auto;
-  height: auto;
   width: 100%;
+  height: 100%;
   position: relative;
   /*overflow: auto;*/
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+
 }
 
 .box-card2 {
@@ -214,7 +184,8 @@ export default {
 
 .headtitle2 {
   margin: 5px;
-  left: -130px;
+  left: 40px;
+  top: 10px;
   position: relative;
   color: rgba(6, 90, 244, 0.79);
 }

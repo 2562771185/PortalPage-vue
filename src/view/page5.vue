@@ -14,14 +14,14 @@
         </div>
       </el-card>
       <el-card class="box-card2">
-        <a :href="actionHost+'/yc/static/wsjrj/modeldisplay5/index.html'" target="_blank">
+        <div @click="goPage(2)" style="cursor:pointer;">
           <div class="iconstyle">
             <i class="el-icon-s-home"></i>
           </div>
           <div class="item2">
             项目库
           </div>
-        </a>
+        </div>
       </el-card>
       <el-card class="box-card2">
         <div @click="goPage(3)" style="cursor:pointer;">
@@ -49,7 +49,6 @@
 
 
 <script>
-import axios from 'axios'
 import global from "@/common/Global";
 import Cookies from 'js-cookie'
 
@@ -82,72 +81,41 @@ export default {
       let url = ""
       switch (val) {
         case 1:
-          url = global.host + '/yc/workFlow/runtime/workFlowPage.do?showType=faqi&processId=b47be961d2324b78b21ea387db4f8d95&formType=3';
+          url =  '/yc/workFlow/runtime/workFlowPage.do?showType=faqi&processId=b47be961d2324b78b21ea387db4f8d95&formType=3';
           window.parent
-              .tabAddAndShow(url, '项目信息上报', val, false, '', 1);
+              .tabAddAndShow(url, '项目信息上报', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 2:
-          url = global.host + 'static/wsjrj/modeldisplay5/index.html';
+          url =  '/yc/formDesign/index.html#/listView/e7795d9252400b6f79b71f0ea2901036';
           window.parent
-              .tabAddAndShow(url, '项目库', val, false, '', 1);
+              .tabAddAndShow(url, '项目库', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 3:
-          url = global.host + '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
+          url =  '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
           window.parent
-              .tabAddAndShow(url, '进度上报', val, false, '', 1);
+              .tabAddAndShow(url, '进度上报', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 4:
-          url = global.host + '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
+          url =  '/yc/formDesign/index.html#/listView/d8a9775c4077cc9c5f0d5d23ecbbc903';
           window.parent
-              .tabAddAndShow(url, '项目投资计划', val, false, '', 1);
+              .tabAddAndShow(url, '项目投资计划', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         default:
-          url = "https://www.baidu.com/"
+          url =  "/yc/portal/loginPortal/afterLogin.do"
       }
-    },
-    getPage(num, size) {
-      // axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
-      //     "&xmmc=" + this.xmmc + "&xmyz=" + this.xmyz + "&zrdw=" + this.zrdw + "&xmcj=" + this.xmcj).then(res => {
-      //   this.tableData = res.data.result.list
-      //   this.total = res.data.result.total
-      // })
-    },
-    handleCurrentChange(val) {
-      this.pageNum = val
-      // console.log(`当前页: ${val}`);
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
-      this.pageSize = val
-      this.pageNum = 1
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    searchKeyWord() {
-      this.getPage(this.pageNum, this.pageSize)
-    },
-    clearSearch() {
-      this.xmmc = ""
-      this.xmcj = ""
-      this.zrdw = ""
-      this.xmyz = ""
-      this.pageNum = 1
-      this.getPage(1, this.pageSize)
     },
   }
 }
 </script>
 <style scoped>
 .app-container2 {
-  text-align: center; /*让div内部文字居中*/
-  width: 400px;
-  height: 300px;
+  width: 92%;
+  height: 92%;
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  /*border: 1px red solid;*/
 }
 
 
@@ -194,7 +162,8 @@ export default {
 
 .headtitle2 {
   margin: 5px;
-  left: -130px;
+  left: 40px;
+  top: 10px;
   position: relative;
   color: rgba(6, 90, 244, 0.79);
 }

@@ -3,61 +3,61 @@
     <h4 class="headtitle1">项目信息</h4>
     <hr class="hrstyle1">
     <div class="box">
-      <el-card  class="box-card">
+      <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-release"></i>申报超时</span>
+          <span class="title" @click="goDeclarationTimeout"><i class="el-icon-s-release"></i>申报超时</span>
         </div>
         <div class="text item">
-          50
+          {{ declarationTimeoutCount }}
         </div>
       </el-card>
-      <el-card  class="box-card">
+      <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-finance"></i>投资未达标</span>
-        </div>
-        <div class="text item">
-          <div class="text"
-          >12
-          </div>
-        </div>
-      </el-card>
-      <el-card  class="box-card">
-        <div slot="header" class="clearfix">
-          <span class="title"><i class="el-icon-s-flag"></i>投资超额</span>
+          <span class="title" @click="goUnqualifiedInvestment"><i class="el-icon-s-finance"></i>投资未达标</span>
         </div>
         <div class="text item">
           <div class="text"
-          >23
+          >{{ unqualifiedInvestmentCount }}
           </div>
         </div>
       </el-card>
-      <el-card  class="box-card">
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goExcessInvestment"><i class="el-icon-s-flag"></i>投资超额</span>
+        </div>
+        <div class="text item">
+          <div class="text"
+          >{{ excessInvestmentCount }}
+          </div>
+        </div>
+      </el-card>
+      <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span class="title" @click="goNotWork"><i class="el-icon-s-open"></i>未开工项目</span>
         </div>
         <div class="text item">
           <div class="text"
-          >43
+          >{{ noneWorkCount }}
           </div>
         </div>
       </el-card>
-      <el-card  class="box-card">
+      <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span class="title" @click="goStartWork"><i class="el-icon-s-check"></i>开工项目</span>
         </div>
         <div class="text item">
           <div class="text"
-          >1
+          >{{ startWorkCount }}
           </div>
         </div>
       </el-card>
-      <el-card  class="box-card">
+      <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span class="title" @click="goDoneWork"><i class="el-icon-s-claim"></i>竣工项目</span>
         </div>
         <div class="text item">
           <div class="text"
-          >2
+          >{{ doneWorkCount }}
           </div>
         </div>
       </el-card>
@@ -68,10 +68,10 @@
 
 
 <script>
-import axios from 'axios'
 import global from "@/common/Global";
 import Cookies from 'js-cookie'
-import Global from "@/common/Global.vue";
+import request from "@/utils/request";
+
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -81,6 +81,12 @@ export default {
       actionHost: global.host,
       msg: "",
       mytoken: null,
+      startWorkCount: 0,
+      noneWorkCount: 0,
+      doneWorkCount: 0,
+      unqualifiedInvestmentCount: 0,
+      excessInvestmentCount: 0,
+      declarationTimeoutCount: 0,
     }
   },
   mounted() {
@@ -88,40 +94,82 @@ export default {
   created() {
     var token = Cookies.get("access_token");
     this.mytoken = {Authorization: token}
+    this.getProjectCounts();
   },
   watch: {},
   methods: {
-    goNotWork(){
-      // this.$message('未开工项目')
-      let url = Global.host + `/yc/formDesign/index.html#/listView/142dc2fb20745634a844308a0bcf19b6`;
+    getProjectCounts() {
+      this.getNoneWorkCount();
+      this.getDoneWorkCount();
+      this.getStartWorkCount();
+      this.getExcessInvestmentCount();
+      this.getUnqualifiedInvestmentCount();
+      this.getDeclarationTimeoutCount();
+    },
+    getNoneWorkCount() {
+      request.get('/project/nonework').then(res => {
+        this.noneWorkCount = res.result;
+      });
+    },
+    getDoneWorkCount() {
+      request.get('/project/donework').then(res => {
+        this.doneWorkCount = res.result;
+      });
+    },
+    getStartWorkCount() {
+      request.get('/project/startwork').then(res => {
+        this.startWorkCount = res.result;
+      });
+    },
+    getExcessInvestmentCount() {
+      request.get('/project/excessinvestment').then(res => {
+        this.excessInvestmentCount = res.result;
+      });
+    },
+    getUnqualifiedInvestmentCount() {
+      request.get('/project/unqualifiedinvestment').then(res => {
+        this.unqualifiedInvestmentCount = res.result;
+      });
+    },
+    getDeclarationTimeoutCount() {
+      request.get('/project/declarationtimeout').then(res => {
+        this.declarationTimeoutCount = res.result;
+      });
+    },
+    goNotWork() {
+      let url = `/yc/formDesign/index.html#/listView/142dc2fb20745634a844308a0bcf19b6`;
       window.parent.tabAddAndShow(url, '未开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
-    goStartWork(){
-      // this.$message('开工项目')
-      let url = Global.host + `/yc/formDesign/index.html#/listView/debcd933ef4aa27fa4771ecf0629a5ec`;
+    goStartWork() {
+      let url = `/yc/formDesign/index.html#/listView/debcd933ef4aa27fa4771ecf0629a5ec`;
       window.parent.tabAddAndShow(url, '开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
-    goDoneWork(){
-      // this.$message('竣工项目')
-      let url = Global.host + `/yc/formDesign/index.html#/listView/e897f9fca086b2af79745aabb0d5d0b7`;
+    goDoneWork() {
+      let url = `/yc/formDesign/index.html#/listView/e897f9fca086b2af79745aabb0d5d0b7`;
       window.parent.tabAddAndShow(url, '竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
+    goExcessInvestment() {
+      let url = `/yc/formDesign/index.html#/listView/2092758b4c96118e8228a66035501762`;
+      window.parent.tabAddAndShow(url, '投资超额', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goUnqualifiedInvestment() {
+      let url = `/yc/formDesign/index.html#/listView/902d21bd1bdc027ab4b02c0ec3e8afb8`;
+      window.parent.tabAddAndShow(url, '投资未达标', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goDeclarationTimeout(){
+      let url = `/yc/formDesign/index.html#/listView/162368350ebe9dbc43a0e96381ebcbf0`;
+      window.parent.tabAddAndShow(url, '申报超时', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    }
   }
 }
 </script>
 <style scoped>
 .app-container1 {
-  text-align: center; /*让div内部文字居中*/
-  border-radius: 20px;
-  width: 900px;
-  height: 300px;
-  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /*border: 1px red solid;*/
+  margin-top: 10px;
 }
 
 .text {
@@ -134,10 +182,11 @@ export default {
   margin-top: -18px;
 }
 
-.clearfix{
+.clearfix {
   margin-top: -12px;
   margin-bottom: 5px;
 }
+
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -171,6 +220,7 @@ export default {
   max-height: 110px;
   background-color: rgba(242, 244, 247, 0.4);
 }
+
 .title:hover {
   cursor: pointer
 }
@@ -186,14 +236,18 @@ export default {
 }
 
 .headtitle1 {
-  margin: 5px;
-  left: -375px;
+  margin: 10px;
+  float: left;
+  left: 37px;
+  top: -5px;
   position: relative;
   color: rgba(6, 90, 244, 0.79);
 }
-.hrstyle1{
+
+.hrstyle1 {
   float: left;
-  left: 38px;
+  left: -45px;
+  top: 20px;
   position: relative;
   width: 80px;
   height: 2px;
