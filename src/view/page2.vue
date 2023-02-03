@@ -29,7 +29,7 @@
             <i class="el-icon-pie-chart"></i>
           </div>
           <div class=" item2">
-            进度上报
+            项目进度汇总
           </div>
         </div>
       </el-card>
@@ -39,7 +39,7 @@
             <i class="el-icon-chat-line-square"></i>
           </div>
           <div class=" item2">
-            项目投资计划
+            项目投资计划汇总
           </div>
         </div>
       </el-card>
@@ -142,7 +142,7 @@ export default {
 
 .item2 {
   margin-top: -10px;
-  font-size: 13px;
+  font-size: 1vw;
   font-weight: bolder;
 }
 

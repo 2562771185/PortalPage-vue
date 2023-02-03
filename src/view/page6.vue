@@ -16,6 +16,12 @@
         <el-badge :value="this.total3" :max="99" class="item">
           <el-button size="small" @click="getList(1,10,2)">已审核的项目</el-button>
         </el-badge>
+        <el-badge :value="this.total3" :max="99" class="item">
+          <el-button size="small" @click="getList(1,10,2)">未读公告</el-button>
+        </el-badge>
+        <el-badge :value="this.total3" :max="99" class="item">
+          <el-button size="small" @click="getList(1,10,2)">已读公告</el-button>
+        </el-badge>
       </div>
       <hr>
       <el-table
@@ -109,7 +115,7 @@ export default {
   watch: {},
   methods: {
     getDetail(bid, pid, insid, name) {
-      let url =  `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
+      let url = `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
       window.parent.tabAddAndShow(url, name, bid, false, '', 1);
     },
     statusStyle(val) {
@@ -203,7 +209,7 @@ export default {
 }
 
 .box2 {
-  width: 600px;
+  width: 100%;
   margin: 5px;
   /*border: 1px red solid;*/
 }

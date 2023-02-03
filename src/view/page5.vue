@@ -121,7 +121,7 @@ export default {
 
 .item2 {
   margin-top: -10px;
-  font-size: 13px;
+  font-size: 1vw;
   font-weight: bolder;
 }
 
