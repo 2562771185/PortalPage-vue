@@ -1,26 +1,36 @@
 <template>
   <div class="index">
-    <h1 style="text-align: center">西乡塘区“项目为王”重大项目库进展表</h1>
+    <h1 style="text-align: center;">西乡塘区“项目为王”重大项目库进展表</h1>
     <el-button
         type="warning"
         style="float: right;margin-right: 20px;width: 100px;"
-        @click="exportProjectInfoAllPage"
+        @click="exportProjectInfo('全部')"
+        :disabled="this.date == null"
     >导出全部
     </el-button>
     <el-button
         type="success"
         style="float: right;margin-right: 10px;width: 100px;"
-        @click="exportProjectInfoCurPage"
+        @click="exportProjectInfo('本页')"
+        :disabled="this.date == null"
     >导出当前页
     </el-button>
-    <span style="margin-left: 5px;margin-right: 10px">选择查询年月份</span>
+    <span style="margin-left: 5px;margin-right: 10px">选择查询日期</span>
     <el-date-picker
         v-model="date"
         type="month"
         value-format="yyyy-MM"
         :default-value="this.date"
+        @change="getList(pageNum,pageSize)"
         placeholder="选择年月">
     </el-date-picker>
+    <span style="margin-left: 15px;margin-right: 10px">项目名称</span>
+    <el-input v-model="searchName"
+              placeholder="请输入项目名称"
+              style="width: 200px;"
+              :clearable="true"
+              @clear="getList(pageNum,pageSize)"
+    ></el-input>
     <el-button
         style="margin-left: 10px"
         type="primary"
@@ -29,11 +39,14 @@
     >搜索
     </el-button>
     <hr>
+    <el-result icon="warning" title="暂无数据" subTitle="当前日期无数据或该项目名称不存在" style="text-align: center" v-if="this.tableData.length <= 0">
+    </el-result>
     <el-table
         :data="tableData"
         style="width: 100%;min-height: 500px"
         max-height="550"
         border
+        v-else
     >
       <el-table-column
           type="index"
@@ -67,7 +80,7 @@
           label="项目名称"
       >
         <template slot-scope="scope">
-          <el-link type="primary">{{ scope.row.xmmc }}</el-link>
+          <el-link type="primary" @click="goProjectDetail(scope.row.id,scope.row.xmmc)">{{ scope.row.xmmc }}</el-link>
         </template>
       </el-table-column>
       <el-table-column
@@ -233,6 +246,7 @@
       >
       </el-pagination>
     </div>
+
   </div>
 </template>
 
@@ -249,7 +263,9 @@ export default {
       pageNum: 1,
       pageSize: 10,
       total: 100,
+      searchFlag: 1,
       date: '2023-01',
+      searchName: '',
       tableData: []
     }
   },
@@ -258,30 +274,70 @@ export default {
     this.getList(1, 10)
   },
   methods: {
-    exportProjectInfoCurPage() {
-      const a = document.createElement('a')
-      a.setAttribute('download', name)
-      // a.setAttribute('target', '_blank')
-      let url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
-          + "&date=" + this.date
-      a.setAttribute('href', url)
-      a.click()
+    // 跳转到详情卡片页
+    goProjectDetail(id, name) {
+      let url = '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
+      window.parent.tabAddAndShow(url, name, id, false, '', 1);
     },
-    exportProjectInfoAllPage() {
-      const a = document.createElement('a')
-      a.setAttribute('download', name)
-      // a.setAttribute('target', '_blank')
-      let url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + -1 + "&pageSize=" + -1
-          + "&date=" + this.date
-      a.setAttribute('href', url)
-      a.click()
+    // 导出excel
+    exportProjectInfo(type) {
+      if (this.tableData.length <= 0) {
+        this.$message({
+          type: 'warning',
+          message: '无数据,无法导出!'
+        });
+        return
+      }
+      let msg = "确认导出" + type + "数据吗？";
+      let url = '';
+      if (this.date != null && this.date !== "") {
+        msg = msg + '导出日期为：' + this.date
+        if (this.searchName != null && this.searchName !== "") {
+          msg += "，项目名称为：" + this.searchName
+        }
+        this.$confirm(msg, '提示', {
+          confirmButtonText: '确定导出',
+          cancelButtonText: '取消导出',
+          type: 'warning'
+        }).then(() => {
+          if (type === '本页') {
+            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
+                + "&date=" + this.date + "&key=" + this.searchName
+          } else {
+            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + -1 + "&pageSize=" + -1
+                + "&date=" + this.date + "&key=" + this.searchName
+          }
+          const a = document.createElement('a')
+          a.setAttribute('download', name)
+          console.log(url)
+          a.setAttribute('href', url)
+          a.click()
+          this.$message({
+            type: 'success',
+            message: '导出成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消导出'
+          });
+        });
+      } else {
+        this.$message({
+          type: 'error',
+          message: '未选择日期,无法导出!'
+        });
+      }
     },
     getList(pageNum, pageSize) {
-      // this.total = 0
+      if (this.date == null || this.date === "") {
+        this.tableData = []
+        return
+      }
       this.pageNum = pageNum
       this.pageSize = pageSize
       request.get("/project-info/page?pageNum=" + pageNum + "&pageSize=" + pageSize
-          + "&date=" + this.date).then(res => {
+          + "&date=" + this.date + "&key=" + this.searchName).then(res => {
         this.tableData = res.result.list
         this.total = res.result.total
       }).catch(error => {

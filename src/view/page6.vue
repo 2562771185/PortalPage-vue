@@ -140,7 +140,7 @@ export default {
       }).catch(error => {
         this.$message({
           showClose: true,
-          message: '获取数据失败!' + error,
+          message: '获取数据失败!' + error.message,
           type: 'error',
           duration: 2000
         });
