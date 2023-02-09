@@ -33,9 +33,8 @@
               @change="getList(pageNum,pageSize)"
     ></el-input>
     <span style="margin-left: 15px;margin-right: 10px">项目层级</span>
-    <el-select v-model="projectLevel" filterable placeholder="请选择项目层级"
+    <el-select v-model="projectLevel" filterable disabled  placeholder="请选择项目层级"
                @change="getList(pageNum,pageSize)"
-               clearable
     >
       <el-option
           v-for="item in projectLevelList"
@@ -68,7 +67,7 @@
     <!--    >搜索-->
     <!--    </el-button>-->
     <el-button
-        style="margin-left: 10px"
+        style="float: right;margin-right: 0;"
         type="primary"
         @click="refreshData"
     >刷新
@@ -354,9 +353,9 @@ export default {
       let url = '';
       if (this.date != null && this.date !== "") {
         msg = msg + '导出日期为：' + this.date
-        if (this.searchName != null && this.searchName !== "") {
-          msg += "，项目名称为：" + this.searchName
-        }
+        // if (this.searchName != null && this.searchName !== "") {
+        //   msg += "，项目名称为：" + this.searchName
+        // }
         this.$confirm(msg, '提示', {
           confirmButtonText: '确定导出',
           cancelButtonText: '取消导出',
@@ -393,18 +392,8 @@ export default {
     },
     refreshData() {
       this.searchName = ''
-      this.projectLevel = []
+      this.date = this.getNowFormatDate()
       this.getList(1, 10)
-    },
-    createStateFilter() {
-      return (state) => {
-        for (let i = 0; i < this.projectLevel.length; i++) {
-          if (state.xmcj.indexOf(this.projectLevel[i]) !== -1) {
-            return true;
-          }
-        }
-        return false;
-      };
     },
     getList(pageNum, pageSize) {
       if (this.date == null || this.date === "") {

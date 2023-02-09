@@ -5,7 +5,7 @@
     <div class="box">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title" @click="goDeclarationTimeout"><i class="el-icon-s-release"></i>申报超时</span>
+          <span class="title" @click="goDeclarationTimeout"><i class="el-icon-s-release"></i>填报超时</span>
         </div>
         <div class="text item">
           {{ declarationTimeoutCount }}
@@ -23,7 +23,7 @@
       </el-card>
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title" @click="goExcessInvestment"><i class="el-icon-s-flag"></i>投资超额</span>
+          <span class="title" @click="goExcessInvestment"><i class="el-icon-s-flag"></i>未按期竣工</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -33,7 +33,7 @@
       </el-card>
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span class="title" @click="goNotWork"><i class="el-icon-s-open"></i>未开工项目</span>
+          <span class="title" @click="goNotWork"><i class="el-icon-s-open"></i>未按期开工</span>
         </div>
         <div class="text item">
           <div class="text"
@@ -82,9 +82,11 @@ export default {
       msg: "",
       mytoken: null,
       startWorkCount: 0,
+      // 未按期开工
       noneWorkCount: 0,
       doneWorkCount: 0,
       unqualifiedInvestmentCount: 0,
+      // 未按期竣工
       excessInvestmentCount: 0,
       declarationTimeoutCount: 0,
     }
@@ -126,7 +128,9 @@ export default {
         this.excessInvestmentCount = res.result;
       });
     },
+    // 投资未达标
     getUnqualifiedInvestmentCount() {
+      //todo 只显示3，6，9，12月份
       request.get('/project/unqualifiedinvestment').then(res => {
         this.unqualifiedInvestmentCount = res.result;
       });

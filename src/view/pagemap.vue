@@ -339,7 +339,7 @@ export default {
 
   .package-path-name {
     font-size: 14px;
-    color: #f40737;
+    color: #ffffff;
   }
 
   .package1 {

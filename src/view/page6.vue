@@ -16,11 +16,14 @@
         <el-badge :value="this.total3" :max="99" class="item">
           <el-button size="small" @click="getList(1,10,2)">已审核的项目</el-button>
         </el-badge>
-        <el-badge :value="this.total3" :max="99" class="item">
-          <el-button size="small" @click="getList(1,10,2)">未读公告</el-button>
+        <el-badge :value="this.total4" :max="99" class="item">
+          <el-button size="small" @click="goUnread()">未读公告</el-button>
         </el-badge>
-        <el-badge :value="this.total3" :max="99" class="item">
-          <el-button size="small" @click="getList(1,10,2)">已读公告</el-button>
+        <el-badge :value="this.total5" :max="99" class="item">
+          <el-button size="small" @click="goRead()">已读公告</el-button>
+        </el-badge>
+        <el-badge :value="this.total6" :max="99" class="item">
+          <el-button size="small" @click="goCancel()">取消发布公告</el-button>
         </el-badge>
       </div>
       <hr>
@@ -104,6 +107,9 @@ export default {
       total1: 100,
       total2: 100,
       total3: 100,
+      total4: 100,
+      total5: 100,
+      total6: 100,
     }
   },
   mounted() {
@@ -114,6 +120,21 @@ export default {
   },
   watch: {},
   methods: {
+    goUnread() {
+      let id = '3fd61d120be975f1fd4168a07a798f02'
+      let url = '/yc/formDesign/index.html#/listView/' + id;
+      window.parent.tabAddAndShow(url, "未读公告", id, false, '', 1);
+    },
+    goRead() {
+      let id = '36d06918b7a7860d9a9b8f5c77a9cde4'
+      let url = '/yc/formDesign/index.html#/listView/' + id;
+      window.parent.tabAddAndShow(url, "已读公告", id, false, '', 1);
+    },
+    goCancel() {
+      let id = 'c8b41fd87bcf9fb500031b9229707705'
+      let url = '/yc/formDesign/index.html#/listView/' + id;
+      window.parent.tabAddAndShow(url, "取消发布公告", id, false, '', 1);
+    },
     getDetail(bid, pid, insid, name) {
       let url = `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
       window.parent.tabAddAndShow(url, name, bid, false, '', 1);
@@ -138,6 +159,7 @@ export default {
         this.tableData = res.result.list
         this.total = res.result.total
       }).catch(error => {
+        console.log(error)
         this.$message({
           showClose: true,
           message: '获取数据失败!' + error.message,
@@ -152,6 +174,11 @@ export default {
         this.total1 = res.result.count2
         this.total2 = res.result.count3
         this.total3 = res.result.count4
+      })
+      request.get("/notice/counts").then(res => {
+        this.total4 = res.result.count1
+        this.total5 = res.result.count2
+        this.total6 = res.result.count3
       })
     },
     handleCurrentChange(val) {
