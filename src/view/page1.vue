@@ -111,38 +111,80 @@ export default {
     getNoneWorkCount() {
       request.get('/project/nonework').then(res => {
         this.noneWorkCount = res.result;
-      });
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
     getDoneWorkCount() {
       request.get('/project/donework').then(res => {
         this.doneWorkCount = res.result;
-      });
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
     getStartWorkCount() {
       request.get('/project/startwork').then(res => {
         this.startWorkCount = res.result;
-      });
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
     getExcessInvestmentCount() {
       request.get('/project/excessinvestment').then(res => {
         this.excessInvestmentCount = res.result;
-      });
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
     // 投资未达标
     getUnqualifiedInvestmentCount() {
       //todo 只显示3，6，9，12月份
       request.get('/project/unqualifiedinvestment').then(res => {
         this.unqualifiedInvestmentCount = res.result;
-      });
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
     getDeclarationTimeoutCount() {
       request.get('/project/declarationtimeout').then(res => {
         this.declarationTimeoutCount = res.result;
-      });
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
     goNotWork() {
       let url = `/yc/formDesign/index.html#/listView/142dc2fb20745634a844308a0bcf19b6`;
-      window.parent.tabAddAndShow(url, '未开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      window.parent.tabAddAndShow(url, '未按期开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goStartWork() {
       let url = `/yc/formDesign/index.html#/listView/debcd933ef4aa27fa4771ecf0629a5ec`;
@@ -153,8 +195,8 @@ export default {
       window.parent.tabAddAndShow(url, '竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goExcessInvestment() {
-      let url = `/yc/formDesign/index.html#/listView/2092758b4c96118e8228a66035501762`;
-      window.parent.tabAddAndShow(url, '投资超额', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      let url = `/yc/formDesign/index.html#/listView/ebd29a6ceaeaf8892cfff8134f40c8ab`;
+      window.parent.tabAddAndShow(url, '未按期竣工', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goUnqualifiedInvestment() {
       let url = `/yc/formDesign/index.html#/listView/902d21bd1bdc027ab4b02c0ec3e8afb8`;
@@ -162,7 +204,7 @@ export default {
     },
     goDeclarationTimeout(){
       let url = `/yc/formDesign/index.html#/listView/162368350ebe9dbc43a0e96381ebcbf0`;
-      window.parent.tabAddAndShow(url, '申报超时', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      window.parent.tabAddAndShow(url, '填报超时', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     }
   }
 }
