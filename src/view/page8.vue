@@ -258,15 +258,14 @@ export default {
           type: 'warning'
         }).then(() => {
           if (type === '本页') {
-            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
-                + "&date=" + this.date + "&key=" + this.searchName + "&level=" + this.projectLevel
+            url = global.host + '/yc/sso/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
+                + "&date=" + this.date + "&key=" + this.searchName
           } else {
-            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + -1 + "&pageSize=" + -1
-                + "&date=" + this.date + "&key=" + this.searchName + "&level=" + this.projectLevel
+            url = global.host + '/yc/sso/exportStatementInfo?pageNum=' + -1 + "&pageSize=" + -1
+                + "&date=" + this.date + "&key=" + this.searchName
           }
           const a = document.createElement('a')
           a.setAttribute('download', name)
-          console.log(url)
           a.setAttribute('href', url)
           a.click()
           this.$message({

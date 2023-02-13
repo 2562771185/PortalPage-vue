@@ -7,7 +7,7 @@ import App from "@/App";
 import router from "./router/index.js";
 
 import BaiduMap from 'vue-baidu-map'
-Vue.use(BaiduMap, { ak: 'lT9L0nuoyI50vPfShepDajgIbpdvVt9X' })
+Vue.use(BaiduMap, { ak: 'GyYsyrdPoxO5uX2GLobyD5bX2Z2esYqN' })
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
