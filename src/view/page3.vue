@@ -109,7 +109,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .app-container3 {
   width: 400px;
   height: 400px;

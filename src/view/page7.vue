@@ -44,28 +44,6 @@
       >
       </el-option>
     </el-select>
-    <!--    <el-select v-model="projectLevel"-->
-    <!--               multiple-->
-    <!--               filterable-->
-    <!--               allow-create-->
-    <!--               default-first-option-->
-    <!--               placeholder="请选择项目层级"-->
-    <!--               @change="getList(pageNum,pageSize)"-->
-    <!--               style="width: 300px;">-->
-    <!--      <el-option-->
-    <!--          v-for="item in projectLevelList"-->
-    <!--          :key="item.id"-->
-    <!--          :label="item.mc"-->
-    <!--          :value="item.id">-->
-    <!--      </el-option>-->
-    <!--    </el-select>-->
-    <!--    <el-button-->
-    <!--        style="margin-left: 10px"-->
-    <!--        type="primary"-->
-    <!--        :disabled="this.date == null"-->
-    <!--        @click="findData()"-->
-    <!--    >搜索-->
-    <!--    </el-button>-->
     <el-button
         style="float: right;margin-right: 0;"
         type="primary"
@@ -250,19 +228,28 @@
       <el-table-column
           prop="qtdw"
           align="center"
-          width="120"
+          width="200"
           label="牵头单位">
       </el-table-column>
       <el-table-column
           prop="zrdw"
           align="center"
-          width="120"
+          width="200"
           label="责任单位">
+        <template slot-scope="scope">
+          <el-tag effect="plain"
+              v-for="i in scope.row.zrdw"
+              :key="i"
+              v-show="i !== ''"
+              style="margin-top: 5px"
+          >{{ i }}
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column
           prop="tbdw"
           align="center"
-          width="120"
+          width="200"
           label="填报单位">
       </el-table-column>
       <el-table-column
@@ -370,8 +357,8 @@ export default {
           }
           const a = document.createElement('a')
           a.setAttribute('download', name)
-          console.log(url)
           a.setAttribute('href', url)
+          a.setAttribute("target","_blank")
           a.click()
           this.$message({
             type: 'success',
@@ -407,6 +394,7 @@ export default {
         this.tableData = res.result.list
         this.tableData.forEach(item => {
           item.xmcj = item.xmcj.split(',')
+          item.zrdw = item.zrdw.split(',')
         })
         this.total = res.result.total
       }).catch(error => {

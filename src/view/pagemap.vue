@@ -83,8 +83,6 @@
 <script>
 import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
-import Global from "@/common/Global.vue";
-import global from "@/common/Global.vue";
 
 export default {
   name: 'page-map',

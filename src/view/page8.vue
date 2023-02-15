@@ -32,18 +32,18 @@
               :clearable="true"
               @change="getList(pageNum,pageSize)"
     ></el-input>
-<!--    <span style="margin-left: 15px;margin-right: 10px">项目层级</span>-->
-<!--    <el-select v-model="projectLevel" filterable disabled  placeholder="请选择项目层级"-->
-<!--               @change="getList(pageNum,pageSize)"-->
-<!--    >-->
-<!--      <el-option-->
-<!--          v-for="item in projectLevelList"-->
-<!--          :key="item.id"-->
-<!--          :label="item.mc"-->
-<!--          :value="item.id"-->
-<!--      >-->
-<!--      </el-option>-->
-<!--    </el-select>-->
+    <!--    <span style="margin-left: 15px;margin-right: 10px">项目层级</span>-->
+    <!--    <el-select v-model="projectLevel" filterable disabled  placeholder="请选择项目层级"-->
+    <!--               @change="getList(pageNum,pageSize)"-->
+    <!--    >-->
+    <!--      <el-option-->
+    <!--          v-for="item in projectLevelList"-->
+    <!--          :key="item.id"-->
+    <!--          :label="item.mc"-->
+    <!--          :value="item.id"-->
+    <!--      >-->
+    <!--      </el-option>-->
+    <!--    </el-select>-->
     <el-button
         style="float: right;margin-right: 0;"
         type="primary"
@@ -210,27 +210,15 @@ export default {
   created() {
     this.date = this.getNowFormatDate()
     this.getList(1, 10)
-    this.label1 = this.date.substring(0,4)+"年度计划投资"
-    this.label2 = this.date.substring(5)+"月完成投资"
-    this.label3 = this.date.substring(0,4)+"年1-12月累计完成投资"
+    this.label1 = this.date.substring(0, 4) + "年度计划投资"
+    this.label2 = this.date.substring(5) + "月完成投资"
+    this.label3 = this.date.substring(0, 4) + "年1-12月累计完成投资"
   },
   methods: {
     selectLevel(level) {
       // console.log(level)
       this.projectLevel = level
     },
-    // getProjectLevelList() {
-    //   request.get("/get-project-level").then(res => {
-    //     this.projectLevelList = res.result
-    //   }).catch(error => {
-    //     this.$message({
-    //       showClose: true,
-    //       message: '获取项目层级: ' + error.message,
-    //       type: 'error',
-    //       duration: 2000
-    //     });
-    //   })
-    // },
     // 跳转到详情卡片页
     goProjectDetail(id, name) {
       let url = '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
@@ -258,6 +246,10 @@ export default {
           type: 'warning'
         }).then(() => {
           if (type === '本页') {
+            // request.get('/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
+            //     + "&date=" + this.date + "&key=" + this.searchName).then(res => {
+            //   console.log(res)
+            // })
             url = global.host + '/yc/sso/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
                 + "&date=" + this.date + "&key=" + this.searchName
           } else {
@@ -267,6 +259,7 @@ export default {
           const a = document.createElement('a')
           a.setAttribute('download', name)
           a.setAttribute('href', url)
+          a.setAttribute("target","_blank")
           a.click()
           this.$message({
             type: 'success',
