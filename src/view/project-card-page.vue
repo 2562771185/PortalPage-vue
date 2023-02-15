@@ -122,10 +122,17 @@ export default {
   watch: {},
   methods: {
     getPage(num, size) {
-      request.get( '/project/page?pageNum=' + num + "&pageSize=" + size +
+      request.get('/project/page?pageNum=' + num + "&pageSize=" + size +
           "&xmmc=" + this.xmmc + "&xmyz=" + this.xmyz + "&zrdw=" + this.zrdw + "&xmcj=" + this.xmcj).then(res => {
         this.tableData = res.result.list
         this.total = res.result.total
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取项目卡片信息: ' + error.message,
+          type: 'error',
+          duration: 2000
+        });
       })
     },
     handleCurrentChange(val) {
@@ -169,7 +176,7 @@ export default {
       }
     },
     getProjectLevelList() {
-      request.get( "/get-project-level").then(res => {
+      request.get("/get-project-level").then(res => {
         this.projectLevelList = res.result
       }).catch(error => {
         this.$message({
@@ -181,7 +188,7 @@ export default {
       })
     },
     getProjectUnitList() {
-      request.get( "/project/unitlist").then(res => {
+      request.get("/project/unitlist").then(res => {
         this.projectUnitList = res.result
       }).catch(error => {
         this.$message({
@@ -193,7 +200,6 @@ export default {
       })
     },
     getDetails(id) {
-      // console.log(id)
       let url = global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
       location.href = url
     }
