@@ -1,5 +1,5 @@
 # PortalPage1-vue
-重大项目管理前端页面项目综合
+重大项目管理前端页面项目综合vue
 ## Project setup
 ```
 npm install
