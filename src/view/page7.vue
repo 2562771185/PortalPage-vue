@@ -1,55 +1,58 @@
 <template>
   <div class="index">
+
     <h1 style="text-align: center;margin-bottom: 40px">
       {{ date.substring(0, 4) }}年{{ date.substring(5) }}月西乡塘区“项目为王”重大项目库进展表</h1>
-    <el-button
-        type="warning"
-        style="float: right;margin-right: 20px;width: 100px;"
-        @click="exportProjectInfo('全部')"
-        :disabled="this.date == null"
-    >导出全部
-    </el-button>
-    <el-button
-        type="success"
-        style="float: right;margin-right: 10px;width: 100px;"
-        @click="exportProjectInfo('本页')"
-        :disabled="this.date == null && this.tableData.length < 1"
-    >导出当前页
-    </el-button>
-    <span style="margin-left: 5px;margin-right: 10px">选择查询日期</span>
-    <el-date-picker
-        v-model="date"
-        type="month"
-        value-format="yyyy-MM"
-        :default-value="this.date"
-        @change="getList(pageNum,pageSize)"
-        placeholder="选择年月">
-    </el-date-picker>
-    <span style="margin-left: 15px;margin-right: 10px">项目名称</span>
-    <el-input v-model="searchName"
-              placeholder="请输入项目名称"
-              style="width: 200px;"
-              :clearable="true"
-              @change="getList(pageNum,pageSize)"
-    ></el-input>
-    <span style="margin-left: 15px;margin-right: 10px">项目层级</span>
-    <el-select v-model="projectLevel" filterable disabled  placeholder="请选择项目层级"
-               @change="getList(pageNum,pageSize)"
-    >
-      <el-option
-          v-for="item in projectLevelList"
-          :key="item.id"
-          :label="item.mc"
-          :value="item.id"
+    <div class="head">
+      <el-button
+          type="warning"
+          style="float: right;margin-right: 20px;width: 100px;"
+          @click="exportProjectInfo('全部')"
+          :disabled="this.date == null"
+      >导出全部
+      </el-button>
+      <el-button
+          type="success"
+          style="float: right;margin-right: 10px;width: 100px;"
+          @click="exportProjectInfo('本页')"
+          :disabled="this.date == null && this.tableData.length < 1"
+      >导出当前页
+      </el-button>
+      <span style="margin-left: 5px;margin-right: 10px">选择查询日期</span>
+      <el-date-picker
+          v-model="date"
+          type="month"
+          value-format="yyyy-MM"
+          :default-value="this.date"
+          @change="getList(pageNum,pageSize)"
+          placeholder="选择年月">
+      </el-date-picker>
+      <span style="margin-left: 15px;margin-right: 10px">项目名称</span>
+      <el-input v-model="searchName"
+                placeholder="请输入项目名称"
+                style="width: 200px;"
+                :clearable="true"
+                @change="getList(pageNum,pageSize)"
+      ></el-input>
+      <span style="margin-left: 15px;margin-right: 10px">项目层级</span>
+      <el-select v-model="projectLevelName" filterable disabled placeholder="请选择项目层级"
+                 @change="getList(pageNum,pageSize)"
       >
-      </el-option>
-    </el-select>
-    <el-button
-        style="float: right;margin-right: 0;"
-        type="primary"
-        @click="refreshData"
-    >刷新
-    </el-button>
+        <el-option
+            v-for="item in projectLevelList"
+            :key="item.id"
+            :label="item.mc"
+            :value="item.id"
+        >
+        </el-option>
+      </el-select>
+      <el-button
+          style="float: right;margin-right: 0;"
+          type="primary"
+          @click="refreshData"
+      >刷新
+      </el-button>
+    </div>
     <hr>
     <el-result icon="warning" title="暂无数据" subTitle="当前日期无数据或该项目不存在" style="text-align: center"
                v-if="this.tableData.length <= 0">
@@ -72,7 +75,6 @@
       <el-table-column
           prop="zyx"
           width="100"
-          fixed
           align="center"
           label="重要性"
       >
@@ -80,7 +82,6 @@
       <el-table-column
           prop="lxld"
           label="联系领导"
-          fixed
           width="120"
           align="center"
       >
@@ -230,6 +231,15 @@
           align="center"
           width="200"
           label="牵头单位">
+        <template slot-scope="scope">
+          <el-tag effect="plain"
+                  v-for="i in scope.row.qtdw"
+                  :key="i"
+                  v-show="i !== ''"
+                  style="margin: 5px"
+          >{{ i }}
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column
           prop="zrdw"
@@ -238,10 +248,10 @@
           label="责任单位">
         <template slot-scope="scope">
           <el-tag effect="plain"
-              v-for="i in scope.row.zrdw"
-              :key="i"
-              v-show="i !== ''"
-              style="margin-top: 5px"
+                  v-for="i in scope.row.zrdw"
+                  :key="i"
+                  v-show="i !== ''"
+                  style="margin: 5px"
           >{{ i }}
           </el-tag>
         </template>
@@ -251,6 +261,15 @@
           align="center"
           width="200"
           label="填报单位">
+        <template slot-scope="scope">
+          <el-tag effect="plain"
+                  v-for="i in scope.row.tbdw"
+                  :key="i"
+                  v-show="i !== ''"
+                  style="margin: 5px"
+          >{{ i }}
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column
           prop="bz"
@@ -292,6 +311,7 @@ export default {
       date: '2023-01',
       searchName: '',
       projectLevel: '',
+      projectLevelName: '',
       tableData: [],
       projectLevelList: [],
     }
@@ -301,14 +321,32 @@ export default {
     if (level != null && level !== '') {
       this.selectLevel(level)
     }
-    this.getProjectLevelList()
+    // this.getProjectLevelList()
     this.date = this.getNowFormatDate()
     this.getList(1, 10)
   },
   methods: {
     selectLevel(level) {
-      // console.log(level)
       this.projectLevel = level
+      switch (level) {
+        case '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554':
+          this.projectLevelName = '自治区级项目'
+              break;
+        case '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554':
+          this.projectLevelName = '南宁市级项目'
+          break;
+        case '19cf36d0bc9d4bd7b667893129c4a554':
+          this.projectLevelName = '西乡塘区级项目'
+          break;
+        case '87efd54e69f5415bbeae242bbeb70d61':
+          this.projectLevelName = '旧城区改造项目'
+          break;
+        case '8b1fa72d34884954a9f3dbffcc739687':
+          this.projectLevelName = '其他项目'
+          break;
+        default:
+          this.projectLevel = level
+      }
     },
     getProjectLevelList() {
       request.get("/get-project-level").then(res => {
@@ -358,7 +396,7 @@ export default {
           const a = document.createElement('a')
           a.setAttribute('download', name)
           a.setAttribute('href', url)
-          a.setAttribute("target","_blank")
+          a.setAttribute("target", "_blank")
           a.click()
           this.$message({
             type: 'success',
@@ -395,6 +433,8 @@ export default {
         this.tableData.forEach(item => {
           item.xmcj = item.xmcj.split(',')
           item.zrdw = item.zrdw.split(',')
+          item.qtdw = item.qtdw.split(',')
+          item.tbdw = item.tbdw.split(',')
         })
         this.total = res.result.total
       }).catch(error => {

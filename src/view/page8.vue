@@ -76,7 +76,7 @@
           label="项目名称"
       >
         <template slot-scope="scope">
-          <el-link type="primary" @click="goProjectDetail(scope.row.id,scope.row.xmmc)">{{ scope.row.xmmc }}</el-link>
+          <el-link class="tagClass" type="primary" @click="goProjectDetail(scope.row.id,scope.row.xmmc)">{{ scope.row.xmmc }}</el-link>
         </template>
       </el-table-column>
       <el-table-column
@@ -87,7 +87,7 @@
           align="center"
       >
         <template slot-scope="scope">
-          <el-tag
+          <el-tag class="tagClass"
               :type="tagType(scope.row.jsxz)"
           >{{ scope.row.jsxz }}
           </el-tag>
@@ -101,7 +101,7 @@
           label="总投资"
       >
         <template slot-scope="scope">
-          <el-tag effect="plain">
+          <el-tag effect="plain" class="tagClass">
             {{ scope.row.ztz }}
           </el-tag>
         </template>
@@ -112,7 +112,7 @@
           width="200"
           :label="label1">
         <template slot-scope="scope">
-          <el-tag effect="plain">
+          <el-tag effect="plain" class="tagClass">
             {{ scope.row.bjdtzjesum }}
           </el-tag>
         </template>
@@ -122,8 +122,8 @@
           width="120"
           align="center"
           :label="label2">
-        <template slot-scope="scope">
-          <el-tag effect="plain">
+        <template slot-scope="scope" >
+          <el-tag effect="plain" class="tagClass">
             {{ scope.row.bytzje }}
           </el-tag>
         </template>
@@ -134,7 +134,7 @@
           width="200"
           :label="label3">
         <template slot-scope="scope">
-          <el-tag effect="plain">
+          <el-tag effect="plain" class="tagClass">
             {{ scope.row.bndljtzje }}
           </el-tag>
         </template>
@@ -142,7 +142,17 @@
       <el-table-column
           prop="qtdw"
           align="center"
+          width="200"
           label="牵头单位">
+        <template slot-scope="scope">
+          <el-tag effect="plain" class="tagClass"
+                  v-for="i in scope.row.qtdw"
+                  :key="i"
+                  v-show="i !== ''"
+                  style="margin: 5px"
+          >{{ i }}
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column
           prop="cylb"
@@ -161,7 +171,7 @@
           width="120"
           label="完成比例">
         <template slot-scope="scope">
-          <el-tag type="danger" effect="plain">
+          <el-tag type="danger" effect="plain" class="tagClass">
             {{ scope.row.wcbl }}
           </el-tag>
         </template>
@@ -246,10 +256,6 @@ export default {
           type: 'warning'
         }).then(() => {
           if (type === '本页') {
-            // request.get('/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
-            //     + "&date=" + this.date + "&key=" + this.searchName).then(res => {
-            //   console.log(res)
-            // })
             url = global.host + '/yc/sso/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
                 + "&date=" + this.date + "&key=" + this.searchName
           } else {
@@ -293,6 +299,9 @@ export default {
       request.get("/statement-info/page?pageNum=" + pageNum + "&pageSize=" + pageSize
           + "&date=" + this.date + "&key=" + this.searchName).then(res => {
         this.tableData = res.result.list
+        this.tableData.forEach(item => {
+          item.qtdw = item.qtdw.split(',')
+        })
         this.total = res.result.total
       }).catch(error => {
         this.$message({
@@ -377,5 +386,8 @@ export default {
 .page {
   margin-top: 10px;
   text-align: center;
+}
+.tagClass{
+  /*font-size: 1vw;*/
 }
 </style>

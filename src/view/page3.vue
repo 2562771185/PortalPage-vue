@@ -39,66 +39,37 @@ export default {
   },
   watch: {},
   methods: {
-    goPage(val) {
-      // console.log(val)
-      let url = ""
-      switch (val) {
-        case '自治区级项目':
-          url = '/yc/formDesign/index.html#/listView/9a6b23ec57ae36e250479b61dcfde3b1';
-          break;
-        case '南宁市级项目':
-          url = '/yc/formDesign/index.html#/listView/ef495f7fd757d4c6f14de68189a78590';
-          break;
-        case '西乡塘区级项目':
-          url = '/yc/formDesign/index.html#/listView/22f98d067266bf004818b8d429c62814';
-          break;
-        case '旧城区改造项目':
-          url = '/yc/formDesign/index.html#/listView/9c7fff39956342bea5c3ff1b4d644599';
-          break;
-        case '其他项目':
-          url = '/yc/formDesign/index.html#/listView/2bb160d88b3f9a3c4f3b4471478be04c';
-          break;
-        default:
-          url = "https://www.baidu.com/"
-      }
-      return url;
-    },
     goPage2(val) {
       let url = ""
       let id = ""
       switch (val) {
         case '自治区级项目':
-          // url =  '/yc/formDesign/index.html#/listView/9a6b23ec57ae36e250479b61dcfde3b1';
-          id = '894b26759909452db2424a26795a795d'
-          url = global.host + '/yc/static/wsjrj/portalmain12/index.html#/page7?level=' + id;
+          id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
+          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + 1;
           window.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         case '南宁市级项目':
-          // url = '/yc/formDesign/index.html#/listView/ef495f7fd757d4c6f14de68189a78590';
-          id = '1ce4de1b12bf4a77815b90a22f6e6b9f'
-          url = global.host + '/yc/static/wsjrj/portalmain12/index.html#/page7?level=' + id;
+          id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
+          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
           window.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         case '西乡塘区级项目':
-          // url = '/yc/formDesign/index.html#/listView/22f98d067266bf004818b8d429c62814';
           id = '19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/portalmain12/index.html#/page7?level=' + id;
+          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
           window.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         case '旧城区改造项目':
-          // url = '/yc/formDesign/index.html#/listView/9c7fff39956342bea5c3ff1b4d644599';
           id = '87efd54e69f5415bbeae242bbeb70d61'
-          url = global.host + '/yc/static/wsjrj/portalmain12/index.html#/page7?level=' + id;
+          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
           window.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         case '其他项目':
-          // url = '/yc/formDesign/index.html#/listView/2bb160d88b3f9a3c4f3b4471478be04c';
           id = '8b1fa72d34884954a9f3dbffcc739687'
-          url = global.host + '/yc/static/wsjrj/portalmain12/index.html#/page7?level=' + id;
+          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
           window.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
