@@ -232,7 +232,7 @@ export default {
     // 跳转到详情卡片页
     goProjectDetail(id, name) {
       let url = '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
-      window.parent.tabAddAndShow(url, name, id, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, name, id, false, '', 1);
     },
     // 导出excel
     exportProjectInfo(type) {

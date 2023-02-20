@@ -123,21 +123,21 @@ export default {
     goUnread() {
       let id = '3fd61d120be975f1fd4168a07a798f02'
       let url = '/yc/formDesign/index.html#/listView/' + id;
-      window.parent.tabAddAndShow(url, "未读公告", id, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, "未读公告", id, false, '', 1);
     },
     goRead() {
       let id = '36d06918b7a7860d9a9b8f5c77a9cde4'
       let url = '/yc/formDesign/index.html#/listView/' + id;
-      window.parent.tabAddAndShow(url, "已读公告", id, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, "已读公告", id, false, '', 1);
     },
     goCancel() {
       let id = 'c8b41fd87bcf9fb500031b9229707705'
       let url = '/yc/formDesign/index.html#/listView/' + id;
-      window.parent.tabAddAndShow(url, "取消发布公告", id, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, "取消发布公告", id, false, '', 1);
     },
     getDetail(bid, pid, insid, name) {
       let url = `/yc/workFlow/runtime/workFlowPage.do?processId=${pid}&businessId=${bid}&formType=3&showType=faqi&formId=${insid}`;
-      window.parent.tabAddAndShow(url, name, bid, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, name, bid, false, '', 1);
     },
     statusStyle(val) {
       switch (val) {

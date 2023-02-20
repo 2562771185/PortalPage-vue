@@ -5,7 +5,7 @@ module.exports = defineConfig({
     assetsDir: 'static',
     parallel: false,
     publicPath: './',
-    outputDir: 'projecmanagement'
+    // outputDir: 'projectmanagement'
 })
 
 

@@ -245,7 +245,7 @@ import global from "@/common/Global.vue";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'page7',
+  name: 'warningProjectList',
   data() {
     return {
       pageNum: 1,
@@ -260,6 +260,7 @@ export default {
     }
   },
   created() {
+    let level = this.$route.query.level
     this.getList(1, 10)
   },
   methods: {
@@ -278,7 +279,7 @@ export default {
     // 跳转到详情卡片页
     goProjectDetail(id, name) {
       let url = '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
-      window.parent.tabAddAndShow(url, name, id, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, name, id, false, '', 1);
     },
     // 导出excel
     exportProjectInfo(type) {

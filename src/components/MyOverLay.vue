@@ -32,7 +32,7 @@ export default {
   methods: {
     handleClick(id) {
       let url =  global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
-      window.parent.tabAddAndShow(url, this.text, id, false, '', 1);
+      window.parent.parent.tabAddAndShow(url, this.text, id, false, '', 1);
     },
     draw({el, BMap, map}) {
       const {lng, lat} = this.position

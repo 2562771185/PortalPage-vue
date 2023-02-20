@@ -1,7 +1,7 @@
 <template>
   <div class="index">
-    <h4 class="headtitle">项目地图</h4>
-    <hr class="hrstyle">
+    <!--    <h4 class="headtitle">项目地图</h4>-->
+    <!--    <hr class="hrstyle">-->
     <div class="box">
       <el-card class="box-card1">
         <div class="item4" @click="goMyJoinProject">
@@ -13,8 +13,8 @@
           我关注的项目:{{ myCareProjectCount }}
         </div>
       </el-card>
-      <el-card class="box-card3" @click="goWarningProject">
-        <div class="item4">
+      <el-card class="box-card3">
+        <div class="item4" @click="goWarningProject">
           预警的项目:{{ warningProjectCount }}
         </div>
       </el-card>
@@ -27,11 +27,11 @@
               v-model="keyword"
               :fetch-suggestions="querySearchAsync"
               size="mini"
-              placeholder="请输入项目名称进行搜索"
+              placeholder="请输入项目名称"
               clearable
               @select="handleSelect"
               @clear="blurForBug"
-              style="width: 220px;margin-right: 10px"
+              style="width: 150px;margin-right: 5px"
           >
             <template slot-scope="{ item }">
               <div
@@ -83,6 +83,7 @@
 <script>
 import MyOverLay from "@/components/MyOverLay";
 import request from "@/utils/request";
+import global from "@/common/Global.vue";
 
 export default {
   name: 'page-map',
@@ -114,15 +115,24 @@ export default {
   methods: {
     goMyJoinProject() {
       let url = `/yc/formDesign/index.html#/listView/8bc70ca154cb6911e9c405d40f89311f`;
-      window.parent.tabAddAndShow(url, '我参与的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      window.parent.parent.tabAddAndShow(url, '我参与的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goMyCareProject() {
       let url = `/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0`;
-      window.parent.tabAddAndShow(url, '我关注的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      window.parent.parent.tabAddAndShow(url, '我关注的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goWarningProject() {
-      let url = `/yc/static/wsjrj/projecmanagement/index.html#/page9`;
-      window.parent.tabAddAndShow(url, '预警项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      // let url =`/yc/formDesign/index.html#/formView/2e40044e9fc18fa196991923dd923a7a`;
+      // window.parent.parent.tabAddAndShow(url, '预警项目', '2e40044e9fc18fa196991923dd923a7a', false, '', 1);
+      // let url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/warningProjectList';
+      // window.parent.parent
+      //     .tabAddAndShow(url, '预警项目', "321b26751239452db2424a26795a795d", false, '', 1);
+
+      let id = '1235672d34884954a9f3dbffcc739687'
+      let url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page9?level=' + id;
+      console.log(url)
+      window.parent.parent
+          .tabAddAndShow(url, '预警项目', id, false, '', 1);
     },
     syncCenterAndZoom(e) {
       const {lng, lat} = e.target.getCenter()
@@ -233,7 +243,7 @@ export default {
 
 .map {
   width: 100%;
-  height: 600px;
+  height: 500px;
 }
 
 .headtitle {
@@ -254,17 +264,17 @@ export default {
 }
 
 .box {
-  margin-top: 20px;
-  width: 1100px;
+  width: 95%;
   height: auto;
   margin-bottom: 3px;
+  overflow: hidden;
   /*border: 1px red solid;*/
 }
 
 .box-card1 {
   position: relative;
-  left: -75px;
-  width: 170px;
+  /*left: -75px;*/
+  width: 165px;
   height: 40px;
   display: inline-block;
   background-color: #42b983;
@@ -272,8 +282,8 @@ export default {
 
 .box-card2 {
   position: relative;
-  left: -75px;
-  width: 170px;
+  /*left: -75px;*/
+  width: 165px;
   height: 40px;
   display: inline-block;
   background-color: #dca639;
@@ -281,8 +291,8 @@ export default {
 
 .box-card3 {
   position: relative;
-  left: -75px;
-  width: 170px;
+  /*left: -75px;*/
+  width: 165px;
   height: 40px;
   display: inline-block;
   background-color: rgba(237, 10, 10, 0.69);
@@ -290,8 +300,8 @@ export default {
 
 .box-card4 {
   position: relative;
-  left: -75px;
-  width: 412px;
+  /*left: -75px;*/
+  width: 340px;
   height: 40px;
   display: inline-block;
   /*background-color: rgba(43, 111, 235, 0.68);*/

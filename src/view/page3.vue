@@ -1,7 +1,7 @@
 <template>
   <div class="app-container3">
-<!--    <h4 class="headtitle3">报表统计</h4>-->
-<!--    <hr class="hrstyle3">-->
+    <!--    <h4 class="headtitle3">报表统计</h4>-->
+    <!--    <hr class="hrstyle3">-->
     <div class="box3">
       <ul class="infinite-list">
         <li v-for="i in listData" :key="i.id" class="infinite-list-item"><span class="text3" @click="goPage2(i)">{{
@@ -22,7 +22,7 @@ export default {
   name: 'page3',
   data() {
     return {
-      listData: ["自治区级项目", "南宁市级项目", "西乡塘区级项目", "旧城区改造项目", "其他项目"],
+      listData: ["自 治 区 级 项 目", "南 宁 市 级 项 目", "西 乡 塘 区 级 项 目", "旧 城 区 改 造 项 目", "其 他 项 目"],
       actionHost: global.host,
       msg: "",
       mytoken: null,
@@ -45,32 +45,32 @@ export default {
       switch (val) {
         case '自治区级项目':
           id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
-          window.parent
+          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          window.parent.parent
               .tabAddAndShow(url, val, "894b26759909452db2424a26795a795d", false, '', 1);
           break;
         case '南宁市级项目':
           id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
-          window.parent
+          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          window.parent.parent
               .tabAddAndShow(url, val, "1ce4de1b12bf4a77815b90a22f6e6b9f", false, '', 1);
           break;
         case '西乡塘区级项目':
           id = '19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
-          window.parent
+          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          window.parent.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         case '旧城区改造项目':
           id = '87efd54e69f5415bbeae242bbeb70d61'
-          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
-          window.parent
+          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          window.parent.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         case '其他项目':
           id = '8b1fa72d34884954a9f3dbffcc739687'
-          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
-          window.parent
+          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          window.parent.parent
               .tabAddAndShow(url, val, id, false, '', 1);
           break;
         default:
@@ -82,14 +82,15 @@ export default {
 </script>
 <style scoped>
 .app-container3 {
-  width: 400px;
-  height: 400px;
+  width: 95%;
+  height: 95%;
   position: relative;
-  margin: auto;
+  margin: 0 auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  text-align: center;
   /*border: 1px red solid;*/
 }
 
@@ -107,8 +108,11 @@ export default {
 
 .box3 {
   height: auto;
-  width: 100%;
+  width: 400px;
   position: relative;
+  /*border: 1px #0157f1 solid;*/
+  margin: 0 auto;
+
   /*overflow: auto;*/
   /*display: flex;*/
   /*flex-wrap: wrap;*/
@@ -134,7 +138,7 @@ export default {
 }
 
 .infinite-list {
-  padding: 10px;
+  padding: 0;
   position: relative;
 }
 
@@ -142,7 +146,7 @@ export default {
   list-style-type: none;
   margin-bottom: 20px;
   height: 50px;
-  width: 350px;
+  width: 400px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   background-color: rgba(6, 90, 244, 0.53);
