@@ -1,7 +1,7 @@
 <template>
   <div class="index">
-    <h4 class="headtitle">项目上报信息</h4>
-    <hr class="hrstyle">
+<!--    <h4 class="headtitle">项目上报信息</h4>-->
+<!--    <hr class="hrstyle">-->
     <div class="box">
       <div class="box2">
         <el-badge :value="this.total0" :max="99" class="item">

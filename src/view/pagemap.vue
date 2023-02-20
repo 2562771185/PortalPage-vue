@@ -13,7 +13,7 @@
           我关注的项目:{{ myCareProjectCount }}
         </div>
       </el-card>
-      <el-card class="box-card3">
+      <el-card class="box-card3" @click="goWarningProject">
         <div class="item4">
           预警的项目:{{ warningProjectCount }}
         </div>
@@ -119,6 +119,10 @@ export default {
     goMyCareProject() {
       let url = `/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0`;
       window.parent.tabAddAndShow(url, '我关注的项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goWarningProject() {
+      let url = `/yc/static/wsjrj/projecmanagement/index.html#/page9`;
+      window.parent.tabAddAndShow(url, '预警项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     syncCenterAndZoom(e) {
       const {lng, lat} = e.target.getCenter()

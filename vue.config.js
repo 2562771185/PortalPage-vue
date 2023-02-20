@@ -1,10 +1,11 @@
-const { defineConfig } = require('@vue/cli-service')
+const {defineConfig} = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true,
-  lintOnSave:false,
-  assetsDir: 'static',
-  parallel: false,
-  publicPath: './',
+    transpileDependencies: true,
+    lintOnSave: false,
+    assetsDir: 'static',
+    parallel: false,
+    publicPath: './',
+    outputDir: 'projecmanagement'
 })
 
 

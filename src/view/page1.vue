@@ -1,7 +1,7 @@
 <template>
   <div class="app-container1">
-    <h4 class="headtitle1">项目信息</h4>
-    <hr class="hrstyle1">
+<!--    <h4 class="headtitle1">项目信息</h4>-->
+<!--    <hr class="hrstyle1">-->
     <div class="box">
       <el-card class="box-card">
         <div slot="header" class="clearfix">

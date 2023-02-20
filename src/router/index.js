@@ -9,6 +9,7 @@ import page6 from "@/view/page6";
 import page7 from "@/view/page7.vue";
 import page8 from "@/view/page8.vue";
 import projectCardPage from "@/view/project-card-page.vue";
+import warningProjectList from "@/view/warning-project-list.vue";
 
 
 Vue.use(Router)
@@ -59,6 +60,11 @@ const router = new Router({
             path:'/project-card-page',
             name:'project-card-page',
             component: projectCardPage
+        },
+        {
+            path:'/page9',
+            name:'warningProjectList',
+            component: warningProjectList
         },
     ]
 })

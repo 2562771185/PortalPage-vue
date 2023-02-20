@@ -1,7 +1,7 @@
 <template>
   <div class="app-container2">
-    <h4 class="headtitle2">快捷入口</h4>
-    <hr class="hrstyle2">
+<!--    <h4 class="headtitle2">快捷入口</h4>-->
+<!--    <hr class="hrstyle2">-->
     <div class="box2">
       <el-card class="box-card2">
         <div @click="goPage(1)" style="cursor:pointer;">

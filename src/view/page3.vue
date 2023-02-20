@@ -1,7 +1,7 @@
 <template>
   <div class="app-container3">
-    <h4 class="headtitle3">报表统计</h4>
-    <hr class="hrstyle3">
+<!--    <h4 class="headtitle3">报表统计</h4>-->
+<!--    <hr class="hrstyle3">-->
     <div class="box3">
       <ul class="infinite-list">
         <li v-for="i in listData" :key="i.id" class="infinite-list-item"><span class="text3" @click="goPage2(i)">{{
@@ -45,15 +45,15 @@ export default {
       switch (val) {
         case '自治区级项目':
           id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + 1;
+          url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
           window.parent
-              .tabAddAndShow(url, val, id, false, '', 1);
+              .tabAddAndShow(url, val, "894b26759909452db2424a26795a795d", false, '', 1);
           break;
         case '南宁市级项目':
           id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
           url = global.host + '/yc/static/wsjrj/projecmanagement/index.html#/page7?level=' + id;
           window.parent
-              .tabAddAndShow(url, val, id, false, '', 1);
+              .tabAddAndShow(url, val, "1ce4de1b12bf4a77815b90a22f6e6b9f", false, '', 1);
           break;
         case '西乡塘区级项目':
           id = '19cf36d0bc9d4bd7b667893129c4a554'
