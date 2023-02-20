@@ -4,7 +4,7 @@
     <!--    <hr class="hrstyle3">-->
     <div class="box3">
       <ul class="infinite-list">
-        <li v-for="i in listData" :key="i.id" class="infinite-list-item"><span class="text3" @click="goPage2(i)">{{
+        <li v-for="(i,index) in listData" :key="i.index" class="infinite-list-item"><span class="text3" @click="goPage2(index)">{{
             i
           }}</span></li>
       </ul>
@@ -43,35 +43,35 @@ export default {
       let url = ""
       let id = ""
       switch (val) {
-        case '自治区级项目':
+        case 0:
           id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
           url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
-              .tabAddAndShow(url, val, "894b26759909452db2424a26795a795d", false, '', 1);
+              .tabAddAndShow(url, this.listData[val], "894b26759909452db2424a26795a795d", false, '', 1);
           break;
-        case '南宁市级项目':
+        case 1:
           id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
           url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
-              .tabAddAndShow(url, val, "1ce4de1b12bf4a77815b90a22f6e6b9f", false, '', 1);
+              .tabAddAndShow(url, this.listData[val], "1ce4de1b12bf4a77815b90a22f6e6b9f", false, '', 1);
           break;
-        case '西乡塘区级项目':
+        case 2:
           id = '19cf36d0bc9d4bd7b667893129c4a554'
           url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
-              .tabAddAndShow(url, val, id, false, '', 1);
+              .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
-        case '旧城区改造项目':
+        case 3:
           id = '87efd54e69f5415bbeae242bbeb70d61'
           url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
-              .tabAddAndShow(url, val, id, false, '', 1);
+              .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
-        case '其他项目':
+        case 4:
           id = '8b1fa72d34884954a9f3dbffcc739687'
           url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
-              .tabAddAndShow(url, val, id, false, '', 1);
+              .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
         default:
           url = "/yc/portal/loginPortal/afterLogin.do"
