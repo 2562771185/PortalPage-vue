@@ -98,7 +98,7 @@
           align="center"
           width="200"
           fixed
-          label="总投资"
+          label="总投资(万元)"
       >
         <template slot-scope="scope">
           <el-tag effect="plain" class="tagClass">
@@ -220,9 +220,9 @@ export default {
   created() {
     this.date = this.getNowFormatDate()
     this.getList(1, 10)
-    this.label1 = this.date.substring(0, 4) + "年度计划投资"
-    this.label2 = this.date.substring(5) + "月完成投资"
-    this.label3 = this.date.substring(0, 4) + "年1-12月累计完成投资"
+    this.label1 = this.date.substring(0, 4) + "年度计划投资(万元)"
+    this.label2 = this.date.substring(5) + "月完成投资(万元)"
+    this.label3 = this.date.substring(0, 4) + "年1-12月累计完成投资(万元)"
   },
   methods: {
     selectLevel(level) {

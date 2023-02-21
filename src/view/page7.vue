@@ -134,7 +134,7 @@
       <el-table-column
           prop="ztz"
           align="center"
-          label="计划总投资">
+          label="计划总投资(万元)">
         <template slot-scope="scope">
           <el-tag effect="plain">
             {{ scope.row.ztz }}
@@ -145,7 +145,7 @@
           prop="bjdtzjesum"
           align="center"
           width="120"
-          label="本年度计划投资">
+          label="本年度计划投资(万元)">
         <template slot-scope="scope">
           <el-tag effect="plain">
             {{ scope.row.bjdtzjesum }}
@@ -168,7 +168,7 @@
           prop="bndljwctz"
           align="center"
           width="120"
-          label="1-12月完成投资">
+          label="1-12月完成投资(万元)">
         <template slot-scope="scope">
           <el-tag effect="plain">
             {{ scope.row.bndljwctz }}

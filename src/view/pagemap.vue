@@ -243,7 +243,7 @@ export default {
 
 .map {
   width: 100%;
-  height: 450px;
+  height: 100vh;
 }
 
 .headtitle {

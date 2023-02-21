@@ -130,8 +130,8 @@ export default {
 <style scoped>
 .app-container2 {
   margin: 0;
-  width: 92%;
-  height: 92%;
+  width: 100%;
+  height: 100%;
   position: relative;
   top: 0;
   left: 0;
@@ -144,7 +144,7 @@ export default {
 
 .item2 {
   margin-top: -10px;
-  font-size: 1vw;
+  font-size: 2vw;
   font-weight: bolder;
 }
 
@@ -153,8 +153,8 @@ export default {
 }
 
 .box2 {
+  margin-top: 18px;
   text-align: left;
-  margin: auto;
   width: 100%;
   height: 100%;
   position: relative;
@@ -167,20 +167,20 @@ export default {
 
 .box-card2 {
   text-align: center;
-  width: 35%;
+  width: 45%;
   border-radius: 15px;
-  height: 90px;
+  height: 105px;
   /*overflow: hidden;*/
   /*margin: 10px;*/
-  margin-bottom: 20px;
-  max-height: 90px;
+  margin-bottom: 25px;
+  /*max-height: 90px;*/
   background-color: rgba(242, 244, 247, 0.4);
 }
 
 .iconstyle {
   margin-bottom: 5px;
   margin-top: -13px;
-  font-size: 40px;
+  font-size: 10vw;
   color: rgba(6, 90, 244, 0.79);
 }
 

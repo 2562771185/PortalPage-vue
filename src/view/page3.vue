@@ -144,7 +144,8 @@ export default {
 
 .infinite-list-item {
   list-style-type: none;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  /*margin: 10px;*/
   height: 50px;
   width: 400px;
   border-radius: 5px;

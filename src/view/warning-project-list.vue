@@ -96,7 +96,7 @@
       <el-table-column
           prop="ztz"
           align="center"
-          label="计划总投资">
+          label="计划总投资(万元)">
         <template slot-scope="scope">
           <el-tag effect="plain">
             {{ scope.row.ztz }}
