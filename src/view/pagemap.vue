@@ -31,7 +31,7 @@
               clearable
               @select="handleSelect"
               @clear="blurForBug"
-              style="width: 150px;margin-right: 5px"
+              style="width: 50%;margin-right: 5px"
           >
             <template slot-scope="{ item }">
               <div
@@ -264,7 +264,7 @@ export default {
 }
 
 .box {
-  width: 95%;
+  width: 100%;
   height: auto;
   margin-bottom: 3px;
   overflow: hidden;
@@ -273,9 +273,11 @@ export default {
 
 .box-card1 {
   position: relative;
+  margin-right: 5px;
   /*left: -75px;*/
-  width: 165px;
+  width: 12%;
   height: 40px;
+  min-width: 160px;
   display: inline-block;
   background-color: #42b983;
 }
@@ -283,8 +285,11 @@ export default {
 .box-card2 {
   position: relative;
   /*left: -75px;*/
-  width: 165px;
+  width: 12%;
+  margin-right: 5px;
   height: 40px;
+  min-width: 160px;
+
   display: inline-block;
   background-color: #dca639;
 }
@@ -292,7 +297,10 @@ export default {
 .box-card3 {
   position: relative;
   /*left: -75px;*/
-  width: 165px;
+  width: 12%;
+  min-width: 160px;
+
+  margin-right: 5px;
   height: 40px;
   display: inline-block;
   background-color: rgba(237, 10, 10, 0.69);
@@ -301,9 +309,10 @@ export default {
 .box-card4 {
   position: relative;
   /*left: -75px;*/
-  width: 340px;
+  width: 25%;
   height: 40px;
   display: inline-block;
+  min-width: 350px;
   /*background-color: rgba(43, 111, 235, 0.68);*/
 }
 

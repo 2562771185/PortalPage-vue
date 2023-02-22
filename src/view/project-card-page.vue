@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <hr>
-    <div style="margin-bottom: 10px;min-width: 1300px">
+    <div style="margin-bottom: 10px;width: 100%;min-width: 1400px">
       <span>项目名称</span>
       <el-input v-model="xmmc" placeholder="输入项目名称"
                 style="width: 200px;margin: auto 25px auto 10px;"
@@ -244,7 +244,7 @@ export default {
   text-align: left;
   margin: auto;
   height: auto;
-  width: 100%;
+  /*width: 90%;*/
   max-width: 1370px;
   min-width: 1370px;
   overflow: auto;

@@ -82,8 +82,8 @@ export default {
 </script>
 <style scoped>
 .app-container3 {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
   position: relative;
   margin: 0 auto;
   top: 0;
@@ -108,7 +108,7 @@ export default {
 
 .box3 {
   height: auto;
-  width: 400px;
+  width: 90%;
   position: relative;
   /*border: 1px #0157f1 solid;*/
   margin: 0 auto;
@@ -147,7 +147,7 @@ export default {
   margin-bottom: 25px;
   /*margin: 10px;*/
   height: 50px;
-  width: 400px;
+  width: 100%;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   background-color: rgba(6, 90, 244, 0.53);
