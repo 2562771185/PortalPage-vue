@@ -196,7 +196,7 @@ export default {
     },
     goExcessInvestment() {
       let url = `/yc/formDesign/index.html#/listView/ebd29a6ceaeaf8892cfff8134f40c8ab`;
-      window.parent.parent.tabAddAndShow(url, '未按期竣工', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+      window.parent.parent.tabAddAndShow(url, '未按期竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goUnqualifiedInvestment() {
       let url = `/yc/formDesign/index.html#/listView/902d21bd1bdc027ab4b02c0ec3e8afb8`;

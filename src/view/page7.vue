@@ -1,6 +1,5 @@
 <template>
   <div class="index">
-
     <h1 style="text-align: center;margin-bottom: 40px">
       {{ date.substring(0, 4) }}年{{ date.substring(5) }}月西乡塘区“项目为王”重大项目库进展表</h1>
     <div class="head">
@@ -36,8 +35,7 @@
       ></el-input>
       <span style="margin-left: 15px;margin-right: 10px">项目层级</span>
       <el-select v-model="projectLevelName" filterable disabled placeholder="请选择项目层级"
-                 @change="getList(pageNum,pageSize)"
-      >
+                 @change="getList(pageNum,pageSize)">
         <el-option
             v-for="item in projectLevelList"
             :key="item.id"
@@ -71,7 +69,6 @@
           fixed
           width="50">
       </el-table-column>
-      <!--      todo 设置样式-->
       <el-table-column
           prop="zyx"
           width="100"
@@ -331,7 +328,7 @@ export default {
       switch (level) {
         case '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554':
           this.projectLevelName = '自治区级项目'
-              break;
+          break;
         case '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554':
           this.projectLevelName = '南宁市级项目'
           break;
