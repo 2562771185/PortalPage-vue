@@ -4,7 +4,7 @@
 <!--    <hr class="hrstyle2">-->
     <div class="box2">
       <el-card class="box-card2">
-        <div @click="goPage2(1)" style="cursor:pointer;">
+        <div @click="goPage(1)" style="cursor:pointer;">
           <div class="iconstyle">
             <i class="el-icon-s-home"></i>
           </div>
@@ -14,7 +14,7 @@
         </div>
       </el-card>
       <el-card class="box-card2">
-        <div @click="goPage2(2)" style="cursor:pointer;">
+        <div @click="goPage(2)" style="cursor:pointer;">
           <div class="iconstyle">
             <i class="el-icon-star-on"></i>
           </div>
@@ -24,7 +24,7 @@
         </div>
       </el-card>
       <el-card class="box-card2">
-        <div @click="goPage2(3)" style="cursor:pointer;">
+        <div @click="goPage(3)" style="cursor:pointer;">
           <div class="iconstyle">
             <i class="el-icon-pie-chart"></i>
           </div>
@@ -34,7 +34,7 @@
         </div>
       </el-card>
       <el-card class="box-card2">
-        <div @click="goPage2(4)" style="cursor:pointer;">
+        <div @click="goPage(4)" style="cursor:pointer;">
           <div class="iconstyle">
             <i class="el-icon-chat-line-square"></i>
           </div>
@@ -78,26 +78,6 @@ export default {
   watch: {},
   methods: {
     goPage(val) {
-      let url = ""
-      switch (val) {
-        case 1:
-          url = '/yc/static/wsjrj/modeldisplay5/index.html';
-          break;
-        case 2:
-          url = '/yc/formDesign/index.html#/listView/45c0a2343fdd7b5ec6dc986bc867e54b';
-          break;
-        case 3:
-          url = '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
-          break;
-        case 4:
-          url = '/yc/formDesign/index.html#/listView/f0e00b876f12cc7fe70a12009c813e2b';
-          break;
-        default:
-          url = "https://www.baidu.com/"
-      }
-      return url;
-    },
-    goPage2(val) {
       let url = ""
       switch (val) {
         case 1:

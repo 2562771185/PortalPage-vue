@@ -40,36 +40,37 @@ export default {
   watch: {},
   methods: {
     goPage2(val) {
+
       let url = ""
       let id = ""
       switch (val) {
         case 0:
           id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], "894b26759909452db2424a26795a795d", false, '', 1);
           break;
         case 1:
           id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], "1ce4de1b12bf4a77815b90a22f6e6b9f", false, '', 1);
           break;
         case 2:
           id = '19cf36d0bc9d4bd7b667893129c4a554'
-          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
         case 3:
           id = '87efd54e69f5415bbeae242bbeb70d61'
-          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
         case 4:
           id = '8b1fa72d34884954a9f3dbffcc739687'
-          url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;

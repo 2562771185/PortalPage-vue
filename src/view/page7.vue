@@ -384,12 +384,13 @@ export default {
           type: 'warning'
         }).then(() => {
           if (type === '本页') {
-            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
+            url = global.host + 'sso/exportProjectInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
                 + "&date=" + this.date + "&key=" + this.searchName + "&level=" + this.projectLevel
           } else {
-            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + -1 + "&pageSize=" + -1
+            url = global.host + 'sso/exportProjectInfo?pageNum=' + -1 + "&pageSize=" + -1
                 + "&date=" + this.date + "&key=" + this.searchName + "&level=" + this.projectLevel
           }
+          // console.log('导出',url)
           const a = document.createElement('a')
           a.setAttribute('download', name)
           a.setAttribute('href', url)

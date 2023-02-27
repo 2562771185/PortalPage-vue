@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 import Global from "@/common/Global";
 import ElementUI from 'element-ui';
 // 这里自己获取token
-let token = Cookies.get("access_token");
+// let token = Cookies.get("access_token");
+let token = sessionStorage.getItem("tokenid");
 axios.defaults.headers.common['tokenid'] = token;
 // http request 拦截器
 axios.interceptors.request.use(
@@ -20,7 +21,7 @@ axios.interceptors.request.use(
 );
 // create an axios instance
 const service = axios.create({
-    baseURL: Global.host + '/yc/sso', // url = base url + request url
+    baseURL: Global.host + 'sso', // url = base url + request url
     timeout: 5000 // request timeout
 })
 

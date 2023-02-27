@@ -256,10 +256,10 @@ export default {
           type: 'warning'
         }).then(() => {
           if (type === '本页') {
-            url = global.host + '/yc/sso/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
+            url = global.host + 'sso/exportStatementInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
                 + "&date=" + this.date + "&key=" + this.searchName
           } else {
-            url = global.host + '/yc/sso/exportStatementInfo?pageNum=' + -1 + "&pageSize=" + -1
+            url = global.host + 'sso/exportStatementInfo?pageNum=' + -1 + "&pageSize=" + -1
                 + "&date=" + this.date + "&key=" + this.searchName
           }
           const a = document.createElement('a')

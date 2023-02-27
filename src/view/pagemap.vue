@@ -129,8 +129,7 @@ export default {
       //     .tabAddAndShow(url, '预警项目', "321b26751239452db2424a26795a795d", false, '', 1);
 
       let id = '1235672d34884954a9f3dbffcc739687'
-      let url = global.host + '/yc/static/wsjrj/projectmanagement/index.html#/page9?level=' + id;
-      console.log(url)
+      let url =   '/yc/static/wsjrj/projectmanagement/index.html#/page9?level=' + id;
       window.parent.parent
           .tabAddAndShow(url, '预警项目', id, false, '', 1);
     },

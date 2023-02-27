@@ -260,7 +260,6 @@ export default {
     }
   },
   created() {
-    let level = this.$route.query.level
     this.getList(1, 10)
   },
   methods: {
@@ -280,56 +279,6 @@ export default {
     goProjectDetail(id, name) {
       let url = '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
       window.parent.parent.tabAddAndShow(url, name, id, false, '', 1);
-    },
-    // 导出excel
-    exportProjectInfo(type) {
-      if (this.tableData.length <= 0) {
-        this.$message({
-          type: 'warning',
-          message: '无数据,无法导出!'
-        });
-        return
-      }
-      let msg = "确认导出" + type + "数据吗？";
-      let url = '';
-      if (this.date != null && this.date !== "") {
-        msg = msg + '导出日期为：' + this.date
-        // if (this.searchName != null && this.searchName !== "") {
-        //   msg += "，项目名称为：" + this.searchName
-        // }
-        this.$confirm(msg, '提示', {
-          confirmButtonText: '确定导出',
-          cancelButtonText: '取消导出',
-          type: 'warning'
-        }).then(() => {
-          if (type === '本页') {
-            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + this.pageNum + "&pageSize=" + this.pageSize
-                + "&date=" + this.date + "&key=" + this.searchName + "&level=" + this.projectLevel
-          } else {
-            url = global.host + '/yc/sso/exportProjectInfo?pageNum=' + -1 + "&pageSize=" + -1
-                + "&date=" + this.date + "&key=" + this.searchName + "&level=" + this.projectLevel
-          }
-          const a = document.createElement('a')
-          a.setAttribute('download', name)
-          a.setAttribute('href', url)
-          a.setAttribute("target", "_blank")
-          a.click()
-          this.$message({
-            type: 'success',
-            message: '导出成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消导出'
-          });
-        });
-      } else {
-        this.$message({
-          type: 'error',
-          message: '未选择日期,无法导出!'
-        });
-      }
     },
     refreshData() {
       this.searchName = ''

@@ -200,7 +200,7 @@ export default {
       })
     },
     getDetails(id) {
-      let url = global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
+      let url =   '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
       location.href = url
     }
   }
