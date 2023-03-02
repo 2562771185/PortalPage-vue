@@ -1,10 +1,13 @@
 import axios from 'axios'
-import Cookies from "js-cookie";
 import Global from "@/common/Global";
 import ElementUI from 'element-ui';
+import Cookies from "js-cookie";
 // 这里自己获取token
-// let token = Cookies.get("access_token");
-let token = sessionStorage.getItem("tokenid");
+let token = '';
+token = sessionStorage.getItem("tokenid");
+if (token == '' || token == null) {
+    token = Cookies.get("access_token");
+}
 axios.defaults.headers.common['tokenid'] = token;
 // http request 拦截器
 axios.interceptors.request.use(
@@ -21,7 +24,7 @@ axios.interceptors.request.use(
 );
 // create an axios instance
 const service = axios.create({
-    baseURL: Global.host + 'sso', // url = base url + request url
+    baseURL: Global.host + '/yc/sso', // url = base url + request url
     timeout: 5000 // request timeout
 })
 
@@ -43,7 +46,7 @@ service.interceptors.response.use(
     },
     // 处理处理错误
     error => {
-        console.log('发生错误：',error)
+        console.log('发生错误：', error)
         ElementUI.Message({
             showClose: true,
             message: error.message,
