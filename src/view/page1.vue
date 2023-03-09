@@ -1,116 +1,210 @@
 <template>
   <div class="app-container1">
-    <!--    <el-button type="primary" @click="goFwPage(1)" :disabled="ssocode == ''" class="btn">访问泛微页面1</el-button>-->
-    <!--    <el-button type="primary" @click="goFwPage(2)" :disabled="ssocode == ''" class="btn">访问泛微页面2</el-button>-->
-    <!--    <el-button type="primary" @click="goFwPage(3)" :disabled="ssocode == ''" class="btn">访问泛微页面3</el-button>-->
-    <!--    <el-button type="primary" @click="goFwPage(4)" :disabled="ssocode == ''" class="btn">访问泛微页面4</el-button>-->
-    <!--    <h4>session: {{ sToken }}</h4>-->
-    <!--    <h4>cookie: {{ cToken }}</h4>-->
-    <!--    <h4>urlToken: {{ urlToken }}</h4>-->
-        <h4>code: {{ ssocode }}</h4>
-    <iframe
-        :src="fwurl"
-        style="width: 100%;height: 800px;"></iframe>
+<!--    <h4 class="headtitle1">项目信息</h4>-->
+<!--    <hr class="hrstyle1">-->
+    <div class="box">
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goDeclarationTimeout"><i class="el-icon-s-release"></i>填报超时</span>
+        </div>
+        <div class="text item">
+          {{ declarationTimeoutCount }}
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goUnqualifiedInvestment"><i class="el-icon-s-finance"></i>投资未达标</span>
+        </div>
+        <div class="text item">
+          <div class="text"
+          >{{ unqualifiedInvestmentCount }}
+          </div>
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goExcessInvestment"><i class="el-icon-s-flag"></i>未按期竣工</span>
+        </div>
+        <div class="text item">
+          <div class="text"
+          >{{ excessInvestmentCount }}
+          </div>
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goNotWork"><i class="el-icon-s-open"></i>未按期开工</span>
+        </div>
+        <div class="text item">
+          <div class="text"
+          >{{ noneWorkCount }}
+          </div>
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goStartWork"><i class="el-icon-s-check"></i>开工项目</span>
+        </div>
+        <div class="text item">
+          <div class="text"
+          >{{ startWorkCount }}
+          </div>
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span class="title" @click="goDoneWork"><i class="el-icon-s-claim"></i>竣工项目</span>
+        </div>
+        <div class="text item">
+          <div class="text"
+          >{{ doneWorkCount }}
+          </div>
+        </div>
+      </el-card>
+
+    </div>
   </div>
 </template>
 
 
 <script>
-
-
+import global from "@/common/Global";
+import Cookies from 'js-cookie'
 import request from "@/utils/request";
-import Global from "@/common/Global.vue";
-import Cookies from "js-cookie";
-import axios from "axios";
+
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'page1',
   data() {
     return {
-      insertFlag: 0,
-      ssocode: '',
-      sToken: '',
-      cToken: '',
-      urlToken: '',
-      fwurl: 'http://192.168.2.188:8888/interface/EntranceApp.jsp?gopage=%2Fmobilemode%2Fmobile%2Fview.html%3Fappid%3D34&appname=ycyingyong&code='
-      // fwurl: 'http://192.168.2.8:18080/yc//workFlow/view/workFlowDesign.html?basePath=http://192.168.2.8:18080/yc/&processId=c9b312116c1542d688c59358cfc4e5a0&definitionId=DEF_5028e8b6277d4e93936529bf8de297f1'
+      actionHost: global.host,
+      msg: "",
+      mytoken: null,
+      startWorkCount: 0,
+      // 未按期开工
+      noneWorkCount: 0,
+      doneWorkCount: 0,
+      unqualifiedInvestmentCount: 0,
+      // 未按期竣工
+      excessInvestmentCount: 0,
+      declarationTimeoutCount: 0,
     }
   },
+  mounted() {
+  },
   created() {
-    this.cToken = Cookies.get("access_token");
-    this.sToken = sessionStorage.getItem("tokenid");
-    this.urlToken = this.$route.query.tokenid
-    this.checkUserInfo()
+    var token = Cookies.get("access_token");
+    this.mytoken = {Authorization: token}
+    this.getProjectCounts();
   },
   watch: {},
   methods: {
-    goFwPage(val) {
-      let pageUrl = ''
-      var uri = encodeURIComponent('/mobilemode/mobile/view.html?appid=33');
-      switch (val) {
-        case 1:
-          pageUrl = '%2Fmobilemode%2Fmobile%2Fview.html%3Fappid%3D34'
-          break;
-        case 2:
-          pageUrl = '%2Fmobilemode%2Fmobile%2Fview.html%3Fappid%3D33'
-          break;
-        case 3:
-          pageUrl = '%2Fmobilemode%2Fmobile%2Fview.html%3Fappid%3D31'
-          break;
-        case 4:
-          pageUrl = '%2Fmobilemode%2Fmobile%2Fview.html%3Fappid%3D32'
-          break;
-      }
-      if (this.insertFlag === 1 && this.ssocode !== '') {
-        window.location.href = Global.fwHost + "/interface/EntranceApp.jsp?gopage=" + pageUrl + "&appname=ycyingyong&code=" + this.ssocode
-      } else {
-        this.$message({
-          type: 'warning',
-          message: '用户信息未完善'
-        });
-      }
+    getProjectCounts() {
+      this.getNoneWorkCount();
+      this.getDoneWorkCount();
+      this.getStartWorkCount();
+      this.getExcessInvestmentCount();
+      this.getUnqualifiedInvestmentCount();
+      this.getDeclarationTimeoutCount();
     },
-    //检查当前用户是否生成了ssouserinfo
-    checkUserInfo() {
-      axios({
-        method: 'get',
-        url: Global.host + '/yc/sso/fw/check-sso-user',
-        headers: {'tokenid': this.urlToken}
-      }).then(res => {
-        if (res.data.code == 200) {
-          this.insertFlag = 1
-          this.ssocode = res.data.result
-          this.fwurl += this.ssocode
-          // this.goFwPage(1)
-        } else {
-          this.$message({
-            type: 'error',
-            message: '获取code失败'
-          });
-        }
+    getNoneWorkCount() {
+      request.get('/project/nonework').then(res => {
+        this.noneWorkCount = res.result;
       }).catch(error => {
         this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
           type: 'error',
-          message: error.message
+          duration: 2000
         });
       })
-      // request.get('/fw/check-sso-user').then(res => {
-      //   if (res.code == 200) {
-      //     this.insertFlag = 1
-      //     this.ssocode = res.result
-      //   } else {
-      //     this.$message({
-      //       type: 'error',
-      //       message: '获取code失败'
-      //     });
-      //   }
-      // }).catch(error => {
-      //   this.$message({
-      //     type: 'error',
-      //     message: error.message
-      //   });
-      // })
+    },
+    getDoneWorkCount() {
+      request.get('/project/donework').then(res => {
+        this.doneWorkCount = res.result;
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
+    },
+    getStartWorkCount() {
+      request.get('/project/startwork').then(res => {
+        this.startWorkCount = res.result;
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
+    },
+    getExcessInvestmentCount() {
+      request.get('/project/excessinvestment').then(res => {
+        this.excessInvestmentCount = res.result;
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
+    },
+    // 投资未达标
+    getUnqualifiedInvestmentCount() {
+      //todo 只显示3，6，9，12月份
+      request.get('/project/unqualifiedinvestment').then(res => {
+        this.unqualifiedInvestmentCount = res.result;
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
+    },
+    getDeclarationTimeoutCount() {
+      request.get('/project/declarationtimeout').then(res => {
+        this.declarationTimeoutCount = res.result;
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取数据失败!' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
+    },
+    goNotWork() {
+      let url = `/yc/formDesign/index.html#/listView/142dc2fb20745634a844308a0bcf19b6`;
+      window.parent.parent.tabAddAndShow(url, '未按期开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goStartWork() {
+      let url = `/yc/formDesign/index.html#/listView/debcd933ef4aa27fa4771ecf0629a5ec`;
+      window.parent.parent.tabAddAndShow(url, '开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goDoneWork() {
+      let url = `/yc/formDesign/index.html#/listView/e897f9fca086b2af79745aabb0d5d0b7`;
+      window.parent.parent.tabAddAndShow(url, '竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goExcessInvestment() {
+      let url = `/yc/formDesign/index.html#/listView/ebd29a6ceaeaf8892cfff8134f40c8ab`;
+      window.parent.parent.tabAddAndShow(url, '未按期竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goUnqualifiedInvestment() {
+      let url = `/yc/formDesign/index.html#/listView/902d21bd1bdc027ab4b02c0ec3e8afb8`;
+      window.parent.parent.tabAddAndShow(url, '投资未达标', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
+    },
+    goDeclarationTimeout(){
+      let url = `/yc/formDesign/index.html#/listView/162368350ebe9dbc43a0e96381ebcbf0`;
+      window.parent.parent.tabAddAndShow(url, '填报超时', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     }
   }
 }
@@ -126,12 +220,87 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  text-align: center;
   /*border: 1px red solid;*/
 }
 
-.btn {
-  width: 10rem;
-  margin: .5rem;
+.text {
+  font-size: 35px;
+  font-weight: bolder;
+  color: #20010b;
+}
+
+.item {
+  margin-top: -18px;
+}
+
+.clearfix {
+  margin-top: -12px;
+  margin-bottom: 5px;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
+
+.box {
+  margin: 0 auto;
+  height: auto;
+  width: 100%;
+  position: relative;
+  /*overflow: auto;*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /*border: 1px rebeccapurple solid;*/
+}
+
+.box-card {
+  text-align: left;
+  width: 25%;
+  border-radius: 15px;
+  height: 100px;
+  margin: 10px;
+  padding: 10px;
+  max-height: 110px;
+  background-color: rgba(242, 244, 247, 0.4);
+}
+
+.title:hover {
+  cursor: pointer
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  font-size: 20px;
+  font-family: 黑体;
+  font-weight: bolder;
+  color: rgba(6, 90, 244, 0.79);
+}
+
+.headtitle1 {
+  margin: 10px;
+  float: left;
+  left: 37px;
+  top: -5px;
+  position: relative;
+  color: rgba(6, 90, 244, 0.79);
+}
+
+.hrstyle1 {
+  float: left;
+  left: -45px;
+  top: 20px;
+  position: relative;
+  width: 80px;
+  height: 2px;
+  background-color: rgba(6, 90, 244, 0.79);
 }
 </style>
