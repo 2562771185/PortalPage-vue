@@ -81,22 +81,22 @@ export default {
       let url = ""
       switch (val) {
         case 1:
-          url =  '/yc/formDesign/index.html#/listView/e7795d9252400b6f79b71f0ea2901036';
+          url =  '/yc/formDesign/index.html#/listView/3f3c8ea8cc61f422d3a2c78e79f5dc34';
           window.parent.parent
               .tabAddAndShow(url, '项目库', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 2:
-          url =  '/yc/formDesign/index.html#/listView/906e82661343b438fea7bb8f87d2dfb0';
+          url =  '/yc/formDesign/index.html#/listView/4ba5d2e9470b9da99708142b506832ad';
           window.parent.parent
               .tabAddAndShow(url, '我的收藏', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 3:
-          url =  '/yc/formDesign/index.html#/listView/5bb968f4e8e4de4962dea469830162f3';
+          url =  '/yc/formDesign/index.html#/listView/5401ef87acff81718eed4c5ebdd8d66f';
           window.parent.parent
               .tabAddAndShow(url, '进度上报', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;
         case 4:
-          url =  '/yc/formDesign/index.html#/listView/d8a9775c4077cc9c5f0d5d23ecbbc903';
+          url =  '/yc/formDesign/index.html#/listView/220bb5f19ba8ad040288bd272d7953cc';
           window.parent.parent
               .tabAddAndShow(url, '项目投资计划', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
           break;

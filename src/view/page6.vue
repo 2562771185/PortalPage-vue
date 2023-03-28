@@ -121,17 +121,17 @@ export default {
   watch: {},
   methods: {
     goUnread() {
-      let id = '3fd61d120be975f1fd4168a07a798f02'
+      let id = '578739b9840a6c696aa1ed9e828a4eea'
       let url = '/yc/formDesign/index.html#/listView/' + id;
       window.parent.parent.tabAddAndShow(url, "未读公告", id, false, '', 1);
     },
     goRead() {
-      let id = '36d06918b7a7860d9a9b8f5c77a9cde4'
+      let id = 'c21d0fb7ec9f4413b2745edaa189bbe9'
       let url = '/yc/formDesign/index.html#/listView/' + id;
       window.parent.parent.tabAddAndShow(url, "已读公告", id, false, '', 1);
     },
     goCancel() {
-      let id = 'c8b41fd87bcf9fb500031b9229707705'
+      let id = 'e90df565788481437f9a457bc2ed48d0'
       let url = '/yc/formDesign/index.html#/listView/' + id;
       window.parent.parent.tabAddAndShow(url, "取消发布公告", id, false, '', 1);
     },

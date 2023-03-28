@@ -183,27 +183,27 @@ export default {
       })
     },
     goNotWork() {
-      let url = `/yc/formDesign/index.html#/listView/142dc2fb20745634a844308a0bcf19b6`;
+      let url = `/yc/formDesign/index.html#/listView/ab8d6eac724cacf05df6acf0abab7749`;
       window.parent.parent.tabAddAndShow(url, '未按期开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goStartWork() {
-      let url = `/yc/formDesign/index.html#/listView/debcd933ef4aa27fa4771ecf0629a5ec`;
+      let url = `/yc/formDesign/index.html#/listView/37da4f610a60b4bba2f417130a1244ea`;
       window.parent.parent.tabAddAndShow(url, '开工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goDoneWork() {
-      let url = `/yc/formDesign/index.html#/listView/e897f9fca086b2af79745aabb0d5d0b7`;
+      let url = `/yc/formDesign/index.html#/listView/7353cf20787d3b4cc6ba61a6531792a8`;
       window.parent.parent.tabAddAndShow(url, '竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goExcessInvestment() {
-      let url = `/yc/formDesign/index.html#/listView/ebd29a6ceaeaf8892cfff8134f40c8ab`;
+      let url = `/yc/formDesign/index.html#/listView/5b40e993b41c0eff025814637ddf6c8d`;
       window.parent.parent.tabAddAndShow(url, '未按期竣工项目', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goUnqualifiedInvestment() {
-      let url = `/yc/formDesign/index.html#/listView/902d21bd1bdc027ab4b02c0ec3e8afb8`;
+      let url = `/yc/formDesign/index.html#/listView/952f3d71e8095908cdbc8301f1516c61`;
       window.parent.parent.tabAddAndShow(url, '投资未达标', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     },
     goDeclarationTimeout(){
-      let url = `/yc/formDesign/index.html#/listView/162368350ebe9dbc43a0e96381ebcbf0`;
+      let url = `/yc/formDesign/index.html#/listView/c959fcad8da49df2d390a2e5f56c2783`;
       window.parent.parent.tabAddAndShow(url, '填报超时', url.substring(url.lastIndexOf('/') + 1), false, '', 1);
     }
   }

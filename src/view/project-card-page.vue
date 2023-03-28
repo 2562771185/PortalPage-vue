@@ -51,7 +51,10 @@
             </el-button>
           </div>
           <div class="text item">
-            项目代码：{{ item.xmdm }}
+            产业类别：
+            <el-tag
+            >{{ item.cylb }}
+            </el-tag>
           </div>
           <div class="text item">
             总投资额： {{ item.ztz }}
@@ -172,7 +175,7 @@ export default {
         '新开工类':
           return 'danger';
         default:
-          return '';
+          return 'success';
       }
     },
     getProjectLevelList() {
@@ -200,7 +203,7 @@ export default {
       })
     },
     getDetails(id) {
-      let url =   '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
+      let url = '/yc/formDesign/index.html#/formView/3e8313db3558afe7471dbd63bb4da295?businessId=' + id;
       location.href = url
     }
   }

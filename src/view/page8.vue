@@ -231,7 +231,7 @@ export default {
     },
     // 跳转到详情卡片页
     goProjectDetail(id, name) {
-      let url = '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
+      let url = '/yc/formDesign/index.html#/formView/3e8313db3558afe7471dbd63bb4da295?businessId=' + id;
       window.parent.parent.tabAddAndShow(url, name, id, false, '', 1);
     },
     // 导出excel

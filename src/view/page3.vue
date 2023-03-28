@@ -4,8 +4,9 @@
     <!--    <hr class="hrstyle3">-->
     <div class="box3">
       <ul class="infinite-list">
-        <li v-for="(i,index) in listData" :key="i.index" class="infinite-list-item"><span class="text3" @click="goPage2(index)">{{
-            i
+        <li v-for="(i,index) in projectLevelList" :key="i.id" class="infinite-list-item"><span class="text3"
+                                                                                          @click="goPage2(index)">{{
+            i.mc
           }}</span></li>
       </ul>
     </div>
@@ -16,6 +17,7 @@
 <script>
 import global from "@/common/Global";
 import Cookies from 'js-cookie'
+import request from "@/utils/request";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -29,6 +31,7 @@ export default {
       pageNum: 1,
       pageSize: 8,
       total: 100,
+      projectLevelList: []
     }
   },
   mounted() {
@@ -36,6 +39,7 @@ export default {
   created() {
     var token = Cookies.get("access_token");
     this.mytoken = {Authorization: token}
+    this.getProjectLevelList();
   },
   watch: {},
   methods: {
@@ -46,38 +50,52 @@ export default {
 
       switch (val) {
         case 0:
-          id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          // id = '894b26759909452db2424a26795a795d,1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
+          id = '894b26759909452db2424a26795a795d'
+          url = '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], "894b26759909452db2424a26795a795d", false, '', 1);
           break;
         case 1:
-          id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
-          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          // id = '1ce4de1b12bf4a77815b90a22f6e6b9f,19cf36d0bc9d4bd7b667893129c4a554'
+          id = '1ce4de1b12bf4a77815b90a22f6e6b9f'
+          url = '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], "1ce4de1b12bf4a77815b90a22f6e6b9f", false, '', 1);
           break;
         case 2:
           id = '19cf36d0bc9d4bd7b667893129c4a554'
-          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url = '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
         case 3:
           id = '87efd54e69f5415bbeae242bbeb70d61'
-          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url = '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
         case 4:
           id = '354044d4abff4120a3e37cf85ac89c56'
-          url =  '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
+          url = '/yc/static/wsjrj/projectmanagement/index.html#/page7?level=' + id;
           window.parent.parent
               .tabAddAndShow(url, this.listData[val], id, false, '', 1);
           break;
         default:
           url = "/yc/portal/loginPortal/afterLogin.do"
       }
+    },
+    getProjectLevelList() {
+      request.get("/get-project-level").then(res => {
+        this.projectLevelList = res.result
+      }).catch(error => {
+        this.$message({
+          showClose: true,
+          message: '获取项目层级: ' + error.message,
+          type: 'error',
+          duration: 2000
+        });
+      })
     },
   }
 }
